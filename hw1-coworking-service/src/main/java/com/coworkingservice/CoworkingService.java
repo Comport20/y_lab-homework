@@ -10,15 +10,7 @@ import java.util.Map;
 
 public class CoworkingService {
     public static void main(String[] args) {
-        Map<Long, Room> testMap = MemoryDB.getInstance().getRoomMapTable();
-        Map<Credential, Person> testMap2 = MemoryDB.getInstance().getPersonMapTable();
-        testMap2.put(new Credential("login","password"),new Tenant("GG","BB"));
-        testMap.put(412L,new WorkplaceRoom(412L));
-        testMap.put(233L,new ConferenceRoom(233L));
-        testMap.put(344L,new ConferenceRoom(344L));
-        testMap.put(322L,new ConferenceRoom(322L));
-        testMap.put(321L,new ConferenceRoom(321L));
-        testMap.put(340L,new ConferenceRoom(340L));
+        generateStartingData();
         RoomCRUD roomCRUD = new RoomCRUD();
         PersonCRUD personCRUD = new PersonCRUD();
         TemporaryFabric temporaryFabric = new TemporaryFabric();
@@ -26,5 +18,17 @@ public class CoworkingService {
         ReservedSlots reservedSlots = new ReservedSlots(roomCRUD);
         DashboardFacade dashboardFacade = new DashboardFacade(freeSlotsCRUD, personCRUD, reservedSlots, roomCRUD, temporaryFabric);
         dashboardFacade.startCoworkingService();
+    }
+    private static void generateStartingData(){
+        long roomId = 1;
+        Map<Long, Room> testMap = MemoryDB.getInstance().getRoomMapTable();
+        Map<Credential, Person> testMap2 = MemoryDB.getInstance().getPersonMapTable();
+        for(int i = 0; i < 10; i++){
+            testMap.put(roomId,new WorkplaceRoom(roomId++));
+        }
+        for(int i = 0; i < 5; i++){
+            testMap.put(roomId,new ConferenceRoom(roomId++));
+        }
+        testMap2.put(new Credential("login","password"), new Tenant("Raw","User"));
     }
 }
