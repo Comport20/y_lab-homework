@@ -8,7 +8,7 @@ import com.coworkingservice.service.ScannerSingleton;
 import java.util.Scanner;
 
 public class TemporaryFabric {
-    private Scanner scanner;
+    private final Scanner scanner;
     public TemporaryFabric() {
         scanner = ScannerSingleton.getInstance().getScanner();
     }

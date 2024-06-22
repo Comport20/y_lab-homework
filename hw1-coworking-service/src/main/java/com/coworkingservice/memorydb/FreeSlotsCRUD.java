@@ -41,8 +41,8 @@ public class FreeSlotsCRUD {
     }
 
 
-    public Object read(Object key) {
-        throw new UnsupportedOperationException();
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
@@ -69,13 +69,14 @@ public class FreeSlotsCRUD {
     }
 
 
-    public void update(Object key) {
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet.");
 
     }
 
 
-    public void delete(Object Key) {
-
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private boolean checkDate(LocalDateTime start1, LocalDateTime end1) {

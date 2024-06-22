@@ -42,7 +42,7 @@ public class PersonCRUD  {
 
 
     public void readAll() {
-        throw new UnsupportedOperationException("Данная операция не поддерживается в целя конфиденциальность");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

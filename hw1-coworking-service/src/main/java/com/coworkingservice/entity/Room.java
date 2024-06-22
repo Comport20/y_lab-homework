@@ -1,8 +1,13 @@
 package com.coworkingservice.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public abstract class Room {
     protected long roomId;
     protected String roomName;
+    @Setter
     protected double price;
 
 
@@ -12,19 +17,4 @@ public abstract class Room {
         this.price = price;
     }
 
-    public long getRoomId() {
-        return roomId;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

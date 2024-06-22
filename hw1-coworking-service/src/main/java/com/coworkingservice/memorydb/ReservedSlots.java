@@ -4,19 +4,16 @@ package com.coworkingservice.memorydb;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 
-import com.coworkingservice.service.ScannerSingleton;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class ReservedSlots {
-    private Scanner scanner;
     private final List<Slot> reservedSlotListTable;
     private final RoomCRUD roomCrud;
 
     public ReservedSlots(RoomCRUD roomCrud) {
-        this.scanner = ScannerSingleton.getInstance().getScanner();
         this.reservedSlotListTable = MemoryDB.getInstance().getReservedSlotListTable();
         this.roomCrud = roomCrud;
     }
@@ -24,7 +21,7 @@ public class ReservedSlots {
     public void create() {
     }
 
-    public Object read(Object key) {
+    public void read() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -42,7 +39,7 @@ public class ReservedSlots {
     }
 
     public void update() {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void delete(Long roomId, LocalDateTime localDateTime) {
