@@ -25,7 +25,7 @@ public class RoomCRUD {
             roomMap.put(roomId, newRoom);
             roomId++;
         } else {
-            System.out.println("Что-то пошло не так, возможно вы ошиблись при вводе");
+            System.out.println("Something went wrong, maybe you made a mistake when entering");
         }
     }
 
@@ -35,10 +35,10 @@ public class RoomCRUD {
     }
 
     public void readAll() {
-        System.out.printf("%-10s  %-20s  %-10s\n", "№", "Комната", "От");
+        System.out.printf("%-10s  %-20s  %-10s\n", "№", "Room", "From");
         for (Map.Entry<Long, Room> entry : roomMap.entrySet()) {
             System.out.printf("%-10s  %-20s  %-10s\n", entry.getKey(),
-                    entry.getValue().getRoomName(), entry.getValue().getPrice() + " руб.");
+                    entry.getValue().getRoomName(), entry.getValue().getPrice() + " rub.");
         }
     }
 
@@ -48,7 +48,7 @@ public class RoomCRUD {
             Room room = createRoom(roomId);
             roomMap.put(roomId, room);
         } else {
-            System.out.println("Рабочего пространства с даннмы номером не существует.");
+            System.out.println("There is no workspace with this number.");
         }
     }
 
@@ -58,8 +58,8 @@ public class RoomCRUD {
     }
 
     private Room createRoom(Long roomId) {
-        System.out.println("Для создания рабочего места нажмите 1");
-        System.out.println("Для создания конференц-зал нажмите 2");
+        System.out.println("To create a workplace, press 1");
+        System.out.println("To create a conference room, press 2");
         return switch (scanner.nextInt()) {
             case 1 -> new WorkplaceRoom(roomId);
             case 2 -> new ConferenceRoom(roomId);

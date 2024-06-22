@@ -26,12 +26,12 @@ public class PersonCRUD  {
             Person tenant = temporaryFabric.createPerson();
             this.registration = new PersonRegistration(credential, tenant);
             if (registration.register()) {
-                System.out.println("Пользователь успешно зарегистрирован.");
+                System.out.println("The user has been successfully registered.");
             } else {
-                System.out.println("Что-то пошло не так, попробйте еще раз или обратиесь в поддержку.");
+                System.out.println("Something went wrong, try again or contact support.");
             }
         } else {
-            System.out.println("Такой пользователь уже существует.");
+            System.out.println("Such a user already exists.");
         }
     }
 

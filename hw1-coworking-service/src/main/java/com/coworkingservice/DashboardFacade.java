@@ -41,29 +41,29 @@ public class DashboardFacade {
     public void startCoworkingService() {
         while (!exit) {
             if (!auth) {
-                System.out.println("Здравствуйте!\n");
-                System.out.printf("%-20s\n", "Для входа нажмите 1");
-                System.out.printf("%-20s\n", "Для регистрации нажмите 2");
-                System.out.printf("%-20s\n", "Для выхода нажмите 0");
+                System.out.println("Hello!\n");
+                System.out.printf("%-20s\n", "To log in, press 1");
+                System.out.printf("%-20s\n", "To register, press 2");
+                System.out.printf("%-20s\n", "To exit, press 0");
                 switch (scanner.nextInt()) {
                     case 0 -> exit = true;
                     case 1 -> auth();
                     case 2 -> registration();
-                    default -> System.out.println("Ошибка ввода попробуйте еще раз");
+                    default -> System.out.println("Input error try again");
                 }
             } else {
-                System.out.printf("%-60s\n", "Для просмотра рабочих мест и конференц-залов нажмите 1");
-                System.out.printf("%-60s\n", "Для просмотра доступного бронирования 2");
-                System.out.printf("%-60s\n", "Для просмотра всех бронирований нажмите 3");
-                System.out.printf("%-60s\n", "Для выхода из учетной записи нажмите 6");
-                System.out.printf("%-20s\n", "Для выхода нажмите 0");
+                System.out.printf("%-60s\n", "To view workplaces and conference rooms, press 1");
+                System.out.printf("%-60s\n", "To view an available booking 2");
+                System.out.printf("%-60s\n", "To view all bookings, press 3");
+                System.out.printf("%-60s\n", "To log out of your account, press 6");
+                System.out.printf("%-20s\n", "To exit, press 0");
                 switch (scanner.nextInt()) {
                     case 0 -> exit = true;
                     case 1 -> reviewPlaces();
                     case 2 -> availableSlots();
                     case 3 -> reservedPlaces();
                     case 6 -> auth = false;
-                    default -> System.out.println("Ошибка ввода попробуйте еще раз");
+                    default -> System.out.println("Input error try again");
                 }
             }
         }
@@ -72,10 +72,10 @@ public class DashboardFacade {
     private void auth() {
         person = personCRUD.read(temporaryFabric.createCredential());
         if (person != null) {
-            System.out.println("Пользователь успешно авторизирован");
+            System.out.println("The user has been successfully logged in");
             auth = true;
         }else {
-            System.out.println("Данный пользоваель не найден");
+            System.out.println("This user was not found");
         }
     }
 
@@ -90,28 +90,28 @@ public class DashboardFacade {
         boolean isEditEnd = false;
         while (!isEditEnd) {
             roomCRUD.readAll();
-            System.out.println("Для добавления аудитории нажмите 1");
-            System.out.println("Для измнения аудитории нажмите 2");
-            System.out.println("Для удаления аудитории нажмите 3");
-            System.out.println("Назад - 0");
+            System.out.println("To add an audience, press 1");
+            System.out.println("To change the audience, press 2");
+            System.out.println("To delete an audience, press 3");
+            System.out.println("Back - 0");
             switch (scanner.nextInt()) {
                 case 0 -> isEditEnd = true;
                 case 1 -> roomCRUD.create();
                 case 2 -> {
-                    System.out.println("Введите номер аудитории которую хотите изменить");
+                    System.out.println("Enter the number of the audience you want to change");
                     Room room = roomCRUD.read(scanner.nextLong());
                     if (room != null)
                         roomCRUD.update(room.getRoomId());
                     else
-                        System.out.println("Номер введ некорректно");
+                        System.out.println("I entered the number incorrectly");
                 }
                 case 3 -> {
-                    System.out.println("Введите номер аудитории которую хотите удалить");
+                    System.out.println("Enter the number of the audience you want to delete");
                     Room room = roomCRUD.read(scanner.nextLong());
                     if (room != null)
                         roomCRUD.delete(room.getRoomId());
                     else
-                        System.out.println("Номер введ некорректно");
+                        System.out.println("The number is entered incorrectly");
                 }
             }
         }
@@ -119,15 +119,15 @@ public class DashboardFacade {
 
     private void availableSlots() {
         roomCRUD.readAll();
-        System.out.println("Выберите аудиторию для бронирования: ");
+        System.out.println("Select an audience for booking: ");
         long roomId = scanner.nextLong();
-        System.out.println("Какое день для бронирования вас интересует(формат для ввода YYYY-MM-DD): ");
+        System.out.println("Which day for booking are you interested in (format for entering YYYY-MM-DD): ");
         String date = scanner.next();
         try {
             LocalDate localDate = LocalDate.parse(date);
             freeSlotsCRUD.readAll(roomId, person, localDate);
         } catch (Exception e) {
-            System.out.println("Что то пошло не так, убедитесь, что правильно ввели дату");
+            System.out.println("Something went wrong, make sure you entered the date correctly");
         }
     }
 
@@ -135,11 +135,11 @@ public class DashboardFacade {
         boolean reservedPlacesExit = false;
         while (!reservedPlacesExit) {
             reservedSlots.readAll();
-            System.out.println("Для отмены бронирование нажмите 1");
-            System.out.println("Для сортировки по дате нажмите 2");
-            System.out.println("Для сортировки по ресурсу нажмите 3");
-            System.out.println("Для сортировки по пользователю нажмите 4");
-            System.out.println("Назад - 0");
+            System.out.println("To cancel a reservation, press 1");
+            System.out.println("To sort by date, press 2");
+            System.out.println("To sort by resource, press 3");
+            System.out.println("To sort by user, press 4");
+            System.out.println("Back - 0");
             switch (scanner.nextInt()) {
                 case 0 -> reservedPlacesExit = true;
                 case 1 -> undoneBooking();
@@ -151,15 +151,15 @@ public class DashboardFacade {
     }
 
     private void undoneBooking() {
-        System.out.println("Введит номер аудитории: ");
+        System.out.println("Enter the audience number: ");
         long roomId = scanner.nextLong();
-        System.out.println("Введит время формата YYYY-MM-DDThh:mm:ss с котрого начинается вша бронь: ");
+        System.out.println("Enter the time in the YYYY-MM-DDThh:mm:ss format from which the booking begins: ");
         String localDateTimeStr = scanner.next();
         try {
             LocalDateTime fromLocalDateTime = LocalDateTime.parse(localDateTimeStr);
             reservedSlots.delete(roomId, fromLocalDateTime);
         } catch (Exception e) {
-            System.out.println("Что то пошло не так, убедитесь, что правильно ввели дату и время");
+            System.out.println("Something went wrong, make sure you entered the date and time correctly");
             e.printStackTrace();
         }
     }

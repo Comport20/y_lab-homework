@@ -33,9 +33,9 @@ public class FreeSlotsCRUD {
             if (checkDate(slot.getFromLocalDateTime(), slot.getToLocalDateTime())) {
                 booking.book(slot);
                 isCorrectTime = true;
-                System.out.println("Слот успешно забронирован");
+                System.out.println("The slot has been successfully booked");
             } else {
-                System.out.println("Слот занят");
+                System.out.println("The slot is occupied");
             }
         }
     }
@@ -48,7 +48,7 @@ public class FreeSlotsCRUD {
 
     public void readAll(Long roomId, Person person, LocalDate localDate) {
         Room room = roomCRUD.read(roomId);
-        System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n", "№", "Комната", "Цена", "Свободно с", "Свободно до");
+        System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n", "№", "Room", "Price", "From", "To");
         for (int initialBookingTime = 9; initialBookingTime < 18; initialBookingTime++) {
             LocalDateTime fromLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime, 0));
             LocalDateTime toLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime + 1, 0));
@@ -58,8 +58,8 @@ public class FreeSlotsCRUD {
                         fromLocalDateTime, toLocalDateTime);
             }
         }
-        System.out.println("Для бронирования аудитории по времени введите 1");
-        System.out.println("Назад - 0");
+        System.out.println("To book an audience by time, enter 1");
+        System.out.println("Back - 0");
         switch (scanner.nextInt()) {
             case 0:
                 break;
@@ -92,23 +92,26 @@ public class FreeSlotsCRUD {
         boolean isCorrect = false;
         int startTime = 0;
         int endTime = 0;
+        double price = 0;
         while (!isCorrect) {
             try {
-                System.out.println("Введите время с которого вы хотите оформить бронь: ");
+                System.out.println("Enter the time from which you want to make a reservation: ");
                 startTime = scanner.nextInt();
-                System.out.println("Введите до скольких вы хотите оформить бронь: ");
+                System.out.println("Enter up to how many you want to make a reservation: ");
                 endTime = scanner.nextInt();
 
                 if (startTime < endTime && startTime >= 9 && endTime <= 18) {
                     isCorrect = true;
+                    price = endTime - startTime;
                 } else {
-                    System.out.println("Время введено некорректно");
+                    System.out.println("The time was entered incorrectly");
                 }
             } catch (Exception e) {
-                System.out.println("Неправильный формат ввода");
+                System.out.println("Incorrect input format");
                 e.printStackTrace();
             }
         }
+        room.setPrice(room.getPrice() * price);
         LocalDateTime localDateTime1 = LocalDateTime.of(localDate, LocalTime.of(startTime, 0));
         LocalDateTime localDateTime2 = LocalDateTime.of(localDate, LocalTime.of(endTime, 0));
         return new Slot(room, person, localDateTime1, localDateTime2);

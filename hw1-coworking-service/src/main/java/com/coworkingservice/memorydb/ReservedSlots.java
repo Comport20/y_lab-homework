@@ -26,11 +26,11 @@ public class ReservedSlots {
     }
 
     public void readAll() {
-        System.out.printf("%-10s  %-20s  %-20s  %-40s  %-20s  %-20s\n", "№", "Комната", "Цена", "Пользователь", "C", "До");
+        System.out.printf("%-10s  %-20s  %-20s  %-40s  %-20s  %-20s\n", "№", "Room", "Price", "Tenant", "From", "To");
         for (Slot reservedSlot : reservedSlotListTable) {
             System.out.printf("%-10s  %-20s  %-20s  %-40s  %-20s  %-20s\n",
                     reservedSlot.getRoom().getRoomId(), reservedSlot.getRoom().getRoomName(),
-                    reservedSlot.getRoom().getPrice() + " руб.",
+                    reservedSlot.getRoom().getPrice() + " rub.",
                     reservedSlot.getPerson().getFirstname() + " " +
                             reservedSlot.getPerson().getLastname(),
                     reservedSlot.getFromLocalDateTime().toString(),
