@@ -1,8 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.entity.Credential;
-import com.coworkingservice.entity.Person;
-import com.coworkingservice.entity.Room;
+import com.coworkingservice.entity.*;
 
 import java.util.*;
 
@@ -10,14 +8,14 @@ public class MemoryDB {
     private static MemoryDB instance;
     private final Map<Long, Room> roomMapTable;
     private final Map<Credential, Person> personMapTable;
-    private final List<Room> freeRoomsListTable;
-    private final List<Room> reservedRoomsListTable;
+    private final List<Slot> freeSlotListTable;
+    private final List<Slot> reservedSlotListTable;
 
     private MemoryDB() {
         this.roomMapTable = new TreeMap<>();
         this.personMapTable = new HashMap<>();
-        this.freeRoomsListTable = new LinkedList<>();
-        this.reservedRoomsListTable = new LinkedList<>();
+        this.freeSlotListTable = new LinkedList<>();
+        this.reservedSlotListTable = new LinkedList<>();
     }
 
     public static MemoryDB getInstance() {
@@ -39,11 +37,11 @@ public class MemoryDB {
         return personMapTable;
     }
 
-    public List<Room> getFreeRoomsListTable() {
-        return freeRoomsListTable;
+    public List<Slot> getFreeSlotListTable() {
+        return freeSlotListTable;
     }
 
-    public List<Room> getReservedRoomsListTable() {
-        return reservedRoomsListTable;
+    public List<Slot> getReservedSlotListTable() {
+        return reservedSlotListTable;
     }
 }

@@ -8,56 +8,59 @@ import com.coworkingservice.service.ScannerSingleton;
 import java.util.Map;
 import java.util.Scanner;
 
-public class RoomCRUD implements CRUD<Long>{
-    private Map<Long,Room> roomMap;
+public class RoomCRUD {
+    private Map<Long, Room> roomMap;
     private final Scanner scanner;
     private Long roomId;
+
     public RoomCRUD() {
         this.roomId = 0L;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.roomMap = MemoryDB.getInstance().getRoomMapTable();
     }
-    @Override
+
     public void create() {
         Room newRoom = createRoom(roomId);
-        if(newRoom != null) {
+        if (newRoom != null) {
             roomMap.put(roomId, newRoom);
             roomId++;
-        }else{
+        } else {
             System.out.println("Что-то пошло не так, возможно вы ошиблись при вводе");
         }
     }
 
-    @Override
-    public void read(Long roomId) {
+
+    public Room read(Long roomId) {
+        return roomMap.get(roomId);
     }
 
-    @Override
     public void readAll() {
         System.out.printf("%-10s  %-20s  %-10s\n", "№", "Комната", "От");
-        for(Map.Entry<Long,Room> entry: roomMap.entrySet()){
+        for (Map.Entry<Long, Room> entry : roomMap.entrySet()) {
             System.out.printf("%-10s  %-20s  %-10s\n", entry.getKey(),
                     entry.getValue().getRoomName(), entry.getValue().getPrice() + " руб.");
         }
     }
 
-    @Override
+
     public void update(Long roomId) {
-        if(roomMap.containsKey(roomId)){
+        if (roomMap.containsKey(roomId)) {
             Room room = createRoom(roomId);
             roomMap.put(roomId, room);
-        }else{
+        } else {
             System.out.println("Рабочего пространства с даннмы номером не существует.");
         }
     }
 
-    @Override
+
     public void delete(Long roomId) {
         roomMap.remove(roomId);
     }
-    private Room createRoom(Long roomId){
-        int roomNumber = scanner.nextInt();
-        return switch(roomNumber){
+
+    private Room createRoom(Long roomId) {
+        System.out.println("Для создания рабочего места нажмите 1");
+        System.out.println("Для создания конференц-зал нажмите 2");
+        return switch (scanner.nextInt()) {
             case 1 -> new WorkplaceRoom(roomId);
             case 2 -> new ConferenceRoom(roomId);
             default -> null;

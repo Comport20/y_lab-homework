@@ -1,5 +1,8 @@
 package com.coworkingservice.entity;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Credential {
     private String username;
     private String password;
