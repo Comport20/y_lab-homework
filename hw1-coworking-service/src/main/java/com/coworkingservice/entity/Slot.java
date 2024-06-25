@@ -1,10 +1,13 @@
 package com.coworkingservice.entity;
 
-import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+@EqualsAndHashCode(callSuper = false)
 public class Slot extends AbstractSlot{
-    public Slot(Room room, Person person, LocalDateTime fromtLocalDateTime, LocalDateTime toLocalDateTime) {
+    public Slot(Room room,double price, Person person, LocalDateTime fromtLocalDateTime, LocalDateTime toLocalDateTime) {
         this.room = room;
+        this.price = price;
         this.person = person;
         this.fromLocalDateTime = fromtLocalDateTime;
         this.toLocalDateTime = toLocalDateTime;

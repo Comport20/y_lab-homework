@@ -3,7 +3,8 @@ package com.coworkingservice.memorydb;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 
-import com.coworkingservice.fabric.TemporaryFabric;
+import com.coworkingservice.fabric.EntityFabric;
+import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.service.verify.Registration;
 import com.coworkingservice.service.verify.PersonRegistration;
 
@@ -11,25 +12,21 @@ import com.coworkingservice.service.verify.PersonRegistration;
 import java.util.Map;
 
 
-public class PersonCRUD  {
+public class PersonCRUD {
     private Map<Credential, Person> personMapTable;
     private Registration registration;
-    private TemporaryFabric temporaryFabric;
-    public PersonCRUD() {
+    private EntityFamilyFabric entityFabric;
+
+    public PersonCRUD(EntityFamilyFabric entityFabric) {
         this.personMapTable = MemoryDB.getInstance().getPersonMapTable();
-        this.temporaryFabric = new TemporaryFabric();
+        this.entityFabric = entityFabric;
     }
 
 
     public void create(Credential credential) {
-        if (!personMapTable.containsKey(credential)) {
-            Person tenant = temporaryFabric.createPerson();
-            this.registration = new PersonRegistration(credential, tenant);
-            if (registration.register()) {
-                System.out.println("The user has been successfully registered.");
-            } else {
-                System.out.println("Something went wrong, try again or contact support.");
-            }
+        this.registration = new PersonRegistration(credential, entityFabric);
+        if (registration.register()) {
+            System.out.println("The user has been successfully registered.");
         } else {
             System.out.println("Such a user already exists.");
         }
@@ -48,8 +45,7 @@ public class PersonCRUD  {
 
     public void update(Credential key) {
         if (personMapTable.containsKey(key)) {
-            Person tenant = temporaryFabric.createPerson();
-            personMapTable.put(key, tenant);
+            personMapTable.put(key, entityFabric.createPerson());
         }
     }
 

@@ -3,7 +3,7 @@ package com.coworkingservice;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
-import com.coworkingservice.fabric.TemporaryFabric;
+import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.service.ScannerSingleton;
 import com.coworkingservice.service.filter.PersonFilter;
@@ -17,25 +17,25 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
-public class DashboardFacade {
+public class GeneralInterface {
 
     private final FreeSlotsCRUD freeSlotsCRUD;
     private final PersonCRUD personCRUD;
-    private final ReservedSlots reservedSlots;
+    private final ReservedSlotsCRUD reservedSlotsCRUD;
     private final RoomCRUD roomCRUD;
     private final Scanner scanner;
     private Person person;
     private boolean auth = false;
     private boolean exit = false;
-    private final TemporaryFabric temporaryFabric;
+    private final EntityFabric entityFabric;
 
-    public DashboardFacade(FreeSlotsCRUD freeSlotsCRUD, PersonCRUD personCRUD, ReservedSlots reservedSlots, RoomCRUD roomCRUD, TemporaryFabric temporaryFabric) {
+    public GeneralInterface(FreeSlotsCRUD freeSlotsCRUD, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric) {
         this.freeSlotsCRUD = freeSlotsCRUD;
         this.personCRUD = personCRUD;
-        this.reservedSlots = reservedSlots;
+        this.reservedSlotsCRUD = reservedSlotsCRUD;
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
-        this.temporaryFabric = temporaryFabric;
+        this.entityFabric = entityFabric;
     }
 
     public void startCoworkingService() {
@@ -70,17 +70,17 @@ public class DashboardFacade {
     }
 
     private void auth() {
-        person = personCRUD.read(temporaryFabric.createCredential());
+        person = personCRUD.read(entityFabric.createCredential());
         if (person != null) {
             System.out.println("The user has been successfully logged in");
             auth = true;
-        }else {
+        } else {
             System.out.println("This user was not found");
         }
     }
 
     private void registration() {
-        Credential credential = temporaryFabric.createCredential();
+        Credential credential = entityFabric.createCredential();
         personCRUD.create(credential);
         person = personCRUD.read(credential);
         auth = true;
@@ -134,7 +134,7 @@ public class DashboardFacade {
     private void reservedPlaces() {
         boolean reservedPlacesExit = false;
         while (!reservedPlacesExit) {
-            reservedSlots.readAll();
+            reservedSlotsCRUD.readAll();
             System.out.println("To cancel a reservation, press 1");
             System.out.println("To sort by date, press 2");
             System.out.println("To sort by resource, press 3");
@@ -157,7 +157,7 @@ public class DashboardFacade {
         String localDateTimeStr = scanner.next();
         try {
             LocalDateTime fromLocalDateTime = LocalDateTime.parse(localDateTimeStr);
-            reservedSlots.delete(roomId, fromLocalDateTime);
+            reservedSlotsCRUD.delete(roomId, fromLocalDateTime);
         } catch (Exception e) {
             System.out.println("Something went wrong, make sure you entered the date and time correctly");
             e.printStackTrace();
