@@ -21,9 +21,15 @@
         <junit-vintage-engine>5.10.2</junit-vintage-engine>
         <mockito-core>5.11.0</mockito-core>
         <mockito-junit-jupiter>5.11.0</mockito-junit-jupiter>
+        <postgresql.version>42.7.3</postgresql.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
