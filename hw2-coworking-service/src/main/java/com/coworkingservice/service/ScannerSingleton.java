@@ -1,6 +1,6 @@
 package com.coworkingservice.service;
 
-import com.coworkingservice.memorydb.MemoryDB;
+import com.coworkingservice.MemoryDB;
 
 import java.util.Scanner;
 

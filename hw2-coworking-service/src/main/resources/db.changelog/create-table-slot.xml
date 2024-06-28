@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
     <changeSet id="create-table-slot" author="Georgiy">
-        <createTable tableName="slot">
+        <createTable tableName="slot" schemaName="entity">
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="slot_pkey"/>
             </column>
-            <column name="room_id">
+            <column name="room_id" type="serial">
                 <constraints nullable="false" references="room(id)" foreignKeyName="fk_room"/>
             </column>
-            <column name="price">
+            <column name="price" type="money">
                 <constraints nullable="false"/>
             </column>
-            <column name="person">
+            <column name="person" type="serial">
                 <constraints nullable="false" references="person(id)" foreignKeyName="fk_person"/>
             </column>
-            <column name="from_date">
+            <column name="from_date" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="to_date">
+            <column name="to_date" type="datetime">
                 <constraints nullable="false"/>
             </column>
         </createTable>

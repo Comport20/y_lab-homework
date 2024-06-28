@@ -1,6 +1,7 @@
 package com.coworkingservice.memorydb;
 
 
+import com.coworkingservice.MemoryDB;
 import com.coworkingservice.entity.Room;
 
 

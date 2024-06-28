@@ -1,7 +1,7 @@
 package com.coworkingservice.service.verify;
 
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.memorydb.MemoryDB;
+import com.coworkingservice.MemoryDB;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -2,7 +2,6 @@ package com.coworkingservice;
 
 import com.coworkingservice.entity.*;
 import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.memorydb.MemoryDB;
 import com.coworkingservice.memorydb.PersonCRUD;
 
 import com.coworkingservice.service.verify.Registration;

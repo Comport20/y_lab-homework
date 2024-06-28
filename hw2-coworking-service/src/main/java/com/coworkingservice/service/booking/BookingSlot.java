@@ -1,7 +1,7 @@
 package com.coworkingservice.service.booking;
 
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.memorydb.MemoryDB;
+import com.coworkingservice.MemoryDB;
 import com.coworkingservice.service.verify.VerifyDate;
 
 import java.util.List;

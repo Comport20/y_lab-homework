@@ -4,8 +4,40 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="insert-room-table" author="Georgiy">
         <insert tableName="room">
-            <column name="room_name"/>
-            <column name="price"/>
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Workplace"/>
+            <column name="price" value="1800"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Conference room"/>
+            <column name="price" value="2500"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Conference room"/>
+            <column name="price" value="2500"/>
+        </insert>
+        <insert tableName="room">
+            <column name="room_name" value="Conference room"/>
+            <column name="price" value="2500"/>
         </insert>
     </changeSet>
 

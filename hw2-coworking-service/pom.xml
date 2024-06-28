@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <liquibase-core.version>4.27.0</liquibase-core.version>
+        <liquibase.version>4.27.0</liquibase.version>
         <lombok.version>1.18.30</lombok.version>
         <junit-jupiter-api.version>5.10.2</junit-jupiter-api.version>
         <junit-jupiter-engine.version>5.10.2</junit-jupiter-engine.version>
@@ -22,6 +22,7 @@
         <mockito-core>5.11.0</mockito-core>
         <mockito-junit-jupiter>5.11.0</mockito-junit-jupiter>
         <postgresql.version>42.7.3</postgresql.version>
+        <propertyFile.path>src/main/resources/db.changelog/liquibase.properties</propertyFile.path>
     </properties>
 
     <dependencies>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase-core.version}</version>
+            <version>${liquibase.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -75,6 +76,14 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <propertyFile>${propertyFile.path}</propertyFile>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

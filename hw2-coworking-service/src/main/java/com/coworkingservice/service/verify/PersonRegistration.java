@@ -3,9 +3,8 @@ package com.coworkingservice.service.verify;
 
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
-import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.memorydb.MemoryDB;
+import com.coworkingservice.MemoryDB;
 
 import java.util.Map;
 
