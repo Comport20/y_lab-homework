@@ -7,10 +7,10 @@ import com.coworkingservice.entity.Slot;
 
 import java.time.LocalDate;
 
-public abstract class EntityFamilyFabric {
-    public abstract Credential createCredential();
-    public abstract Person createPerson();
-    public abstract Slot createSlot(Room room, Person person, LocalDate localDate);
-    public abstract Room createRoom(Long roomId);
+public interface EntityFamilyFabric {
+    Credential createCredential();
+    Person createPerson();
+    Slot createSlot(Room room, Person person, LocalDate localDate);
+    Room createRoom(Long roomId);
 
 }

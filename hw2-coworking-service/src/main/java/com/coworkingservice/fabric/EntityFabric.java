@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-public class EntityFabric extends EntityFamilyFabric{
+public class EntityFabric implements EntityFamilyFabric{
     private final Scanner scanner;
     public EntityFabric() {
         scanner = ScannerSingleton.getInstance().getScanner();

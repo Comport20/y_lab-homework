@@ -14,43 +14,55 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <liquibase-core.version>4.27.0</liquibase-core.version>
+        <lombok.version>1.18.30</lombok.version>
+        <junit-jupiter-api.version>5.10.2</junit-jupiter-api.version>
+        <junit-jupiter-engine.version>5.10.2</junit-jupiter-engine.version>
+        <junit-vintage-engine>5.10.2</junit-vintage-engine>
+        <mockito-core>5.11.0</mockito-core>
+        <mockito-junit-jupiter>5.11.0</mockito-junit-jupiter>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-core.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
+            <version>${junit-jupiter-engine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.10.2</version>
+            <version>${junit-vintage-engine}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.11.0</version>
+            <version>${mockito-core}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.11.0</version>
+            <version>${mockito-junit-jupiter}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

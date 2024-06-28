@@ -10,7 +10,6 @@ public abstract class Room {
     @Setter
     protected double price;
 
-
     public Room(long roomId, String roomName, double price) {
         this.roomId = roomId;
         this.roomName = roomName;
