@@ -13,9 +13,9 @@ import java.util.Map;
 
 
 public class PersonCRUD {
-    private Map<Credential, Person> personMapTable;
+    private final Map<Credential, Person> personMapTable;
     private Registration registration;
-    private EntityFamilyFabric entityFabric;
+    private final EntityFamilyFabric entityFabric;
 
     public PersonCRUD(EntityFamilyFabric entityFabric) {
         this.personMapTable = MemoryDB.getInstance().getPersonMapTable();

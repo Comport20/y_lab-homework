@@ -11,7 +11,7 @@ public class BookingSlot implements Booking<Slot>{
     private final VerifyDate verifyDate;
     public BookingSlot(VerifyDate verifyDate) {
         this.reservedRoomsListTable = MemoryDB.getInstance().getReservedSlotListTable();
-        this.verifyDate = new VerifyDate();
+        this.verifyDate = verifyDate;
     }
 
     @Override

@@ -17,8 +17,8 @@ import java.util.List;
 public class ReservedSlotsCRUD {
     private final List<Slot> reservedSlotListTable;
     private final RoomCRUD roomCrud;
-    private Booking<Slot> booking;
-    private EntityFamilyFabric entityFabric;
+    private final Booking<Slot> booking;
+    private final EntityFamilyFabric entityFabric;
 
     public ReservedSlotsCRUD(RoomCRUD roomCrud, Booking<Slot> booking, EntityFamilyFabric entityFabric) {
         this.reservedSlotListTable = MemoryDB.getInstance().getReservedSlotListTable();

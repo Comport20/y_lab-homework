@@ -22,7 +22,7 @@
         <mockito-core>5.11.0</mockito-core>
         <mockito-junit-jupiter>5.11.0</mockito-junit-jupiter>
         <postgresql.version>42.7.3</postgresql.version>
-        <propertyFile.path>src/main/resources/db.changelog/liquibase.properties</propertyFile.path>
+        <propertyFile.path>src/main/resources/db/changelog/liquibase.properties</propertyFile.path>
     </properties>
 
     <dependencies>

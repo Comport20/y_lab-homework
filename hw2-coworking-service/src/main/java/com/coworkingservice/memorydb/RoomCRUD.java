@@ -12,10 +12,10 @@ import java.util.Map;
 
 
 public class RoomCRUD {
-    private Map<Long, Room> roomMap;
+    private final Map<Long, Room> roomMap;
 
     private Long roomId;
-    private EntityFamilyFabric entityFabric;
+    private final EntityFamilyFabric entityFabric;
 
     public RoomCRUD(EntityFamilyFabric entityFabric) {
         this.roomId = 1L;

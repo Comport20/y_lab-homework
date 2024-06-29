@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class FreeSlotsCRUD {
     private final RoomCRUD roomCRUD;
     private final Scanner scanner;
-    private VerifyDate verifyDate;
+    private final VerifyDate verifyDate;
     private final ReservedSlotsCRUD reservedSlotsCRUD;
 
     public FreeSlotsCRUD(RoomCRUD roomCRUD, ReservedSlotsCRUD reservedSlotsCRUD, VerifyDate verifyDate) {

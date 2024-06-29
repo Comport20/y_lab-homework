@@ -11,7 +11,7 @@ import java.util.Map;
 public class PersonRegistration implements Registration {
     private final Credential credential;
     private final Map<Credential, Person> personMapTable;
-    private EntityFamilyFabric entityFabric;
+    private final EntityFamilyFabric entityFabric;
     public PersonRegistration(Credential credential, EntityFamilyFabric entityFabric) {
         this.credential = credential;
         this.personMapTable = MemoryDB.getInstance().getPersonMapTable();

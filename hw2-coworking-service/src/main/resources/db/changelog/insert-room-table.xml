@@ -3,39 +3,39 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="insert-room-table" author="Georgiy">
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Workplace"/>
             <column name="price" value="1800"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Conference room"/>
             <column name="price" value="2500"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Conference room"/>
             <column name="price" value="2500"/>
         </insert>
-        <insert tableName="room">
+        <insert tableName="room" schemaName="entity">
             <column name="room_name" value="Conference room"/>
             <column name="price" value="2500"/>
         </insert>
