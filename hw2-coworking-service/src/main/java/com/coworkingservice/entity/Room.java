@@ -2,16 +2,16 @@ package com.coworkingservice.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Setter
 @Getter
 public abstract class Room {
-    protected long roomId;
+    private int auditorium;
+    @Setter()
     protected String roomName;
-    @Setter
     protected double price;
 
-    public Room(long roomId, String roomName, double price) {
-        this.roomId = roomId;
+    public Room(int auditorium, String roomName, double price) {
+        this.auditorium = auditorium;
         this.roomName = roomName;
         this.price = price;
     }

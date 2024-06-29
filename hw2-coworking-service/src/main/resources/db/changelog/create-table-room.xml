@@ -7,6 +7,9 @@
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="room_pkey"/>
             </column>
+            <column name="auditorium" type="int">
+                <constraints nullable="false" unique="true"/>
+            </column>
             <column name="room_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>

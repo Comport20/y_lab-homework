@@ -37,7 +37,7 @@ public class MemoryDB {
 
     public static Connection getConnection() {
         Properties prop = new Properties();
-        try (InputStream input = new FileInputStream("src/main/resources/db.changelog/liquibase.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/db/changelog/liquibase.properties")) {
             prop.load(input);
             String url = prop.getProperty("url");
             String username = prop.getProperty("username");

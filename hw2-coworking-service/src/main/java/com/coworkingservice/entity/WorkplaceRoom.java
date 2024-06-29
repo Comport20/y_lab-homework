@@ -1,7 +1,7 @@
 package com.coworkingservice.entity;
 
 public class WorkplaceRoom extends Room{
-    public WorkplaceRoom(long roomId) {
-        super(roomId, "Workplace", 1800.0);
+    public WorkplaceRoom(int auditorium) {
+        super(auditorium,"Workplace", 1800.0);
     }
 }

@@ -56,13 +56,15 @@ public class EntityFabric implements EntityFamilyFabric{
         LocalDateTime localDateTime2 = LocalDateTime.of(localDate, LocalTime.of(endTime, 0));
         return new Slot(room, price ,person, localDateTime1, localDateTime2);
     }
-    public Room createRoom(Long roomId) {
+    public Room createRoom() {
+        System.out.println("Enter the audience number: ");
+        int audience = scanner.nextInt();
         System.out.println("To create a workplace, press 1");
         System.out.println("To create a conference room, press 2");
         return switch (scanner.nextInt()) {
-            case 1 -> new WorkplaceRoom(roomId);
-            case 2 -> new ConferenceRoom(roomId);
-            default -> null;
+            case 1 -> new WorkplaceRoom(audience);
+            case 2 -> new ConferenceRoom(audience);
+            default -> throw new IllegalStateException("Unexpected value: " + audience);
         };
     }
 }

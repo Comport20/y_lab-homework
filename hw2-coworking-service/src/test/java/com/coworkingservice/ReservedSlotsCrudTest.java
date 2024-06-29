@@ -71,11 +71,11 @@ public class ReservedSlotsCrudTest {
 
     @Test
     public void deleteRecordIsDeleteTest() {
-        Room room = new WorkplaceRoom(1L);
+        Room room = new WorkplaceRoom(1);
         Person person = Mockito.mock(Person.class);
         LocalDateTime localDateTime = LocalDateTime.parse("2024-06-25T10:00");
         Slot spySlot = spy(new Slot(room, 5000.0, person, localDateTime, localDateTime));
-        when(roomCrud.read(anyLong())).thenReturn(room);
+        when(roomCrud.read(anyInt())).thenReturn(room);
         reservedSlotListTable.add(spySlot);
         reservedSlotsCRUD.delete(1L, localDateTime);
         Assertions.assertEquals("The booking has been cancelled successfully", outputStreamCaptor.toString().trim());
@@ -83,11 +83,11 @@ public class ReservedSlotsCrudTest {
 
     @Test
     public void deleteRecordNotDeleteTest() {
-        Room room = new WorkplaceRoom(1L);
+        Room room = new WorkplaceRoom(1);
         Person person = Mockito.mock(Person.class);
         LocalDateTime localDateTime = LocalDateTime.parse("2024-06-25T10:00");
         Slot spySlot = spy(new Slot(room, 5000.0, person, localDateTime, localDateTime));
-        when(roomCrud.read(anyLong())).thenReturn(null);
+        when(roomCrud.read(anyInt())).thenReturn(null);
         reservedSlotListTable.add(spySlot);
         reservedSlotsCRUD.delete(2L, localDateTime);
         Assertions.assertEquals("This booking was not found", outputStreamCaptor.toString().trim());

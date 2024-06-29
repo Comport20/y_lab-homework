@@ -9,17 +9,19 @@ import com.coworkingservice.service.ScannerSingleton;
 import com.coworkingservice.service.filter.PersonFilter;
 import com.coworkingservice.service.filter.PriceFilter;
 import com.coworkingservice.service.filter.TimeFilter;
+import com.coworkingservice.service.verify.FreeSlotsCheck;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.util.List;
 import java.util.Scanner;
 
 
 public class GeneralInterface {
 
-    private final FreeSlotsCRUD freeSlotsCRUD;
+    private final FreeSlotsCheck freeSlotsCheck;
     private final PersonCRUD personCRUD;
     private final ReservedSlotsCRUD reservedSlotsCRUD;
     private final RoomCRUD roomCRUD;
@@ -29,8 +31,8 @@ public class GeneralInterface {
     private boolean exit = false;
     private final EntityFabric entityFabric;
 
-    public GeneralInterface(FreeSlotsCRUD freeSlotsCRUD, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric) {
-        this.freeSlotsCRUD = freeSlotsCRUD;
+    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric) {
+        this.freeSlotsCheck = freeSlotsCheck;
         this.personCRUD = personCRUD;
         this.reservedSlotsCRUD = reservedSlotsCRUD;
         this.roomCRUD = roomCRUD;
@@ -89,27 +91,25 @@ public class GeneralInterface {
     private void reviewPlaces() {
         boolean isEditEnd = false;
         while (!isEditEnd) {
-            roomCRUD.readAll();
-            System.out.println("To add an audience, press 1");
-            System.out.println("To change the audience, press 2");
-            System.out.println("To delete an audience, press 3");
+            readAllRoom();
+            System.out.println("To add an auditorium, press 1");
+            System.out.println("To change the auditorium, press 2");
+            System.out.println("To delete an auditorium, press 3");
             System.out.println("Back - 0");
             switch (scanner.nextInt()) {
                 case 0 -> isEditEnd = true;
                 case 1 -> roomCRUD.create();
                 case 2 -> {
-                    System.out.println("Enter the number of the audience you want to change");
-                    Room room = roomCRUD.read(scanner.nextLong());
-                    if (room != null)
-                        roomCRUD.update(room.getRoomId());
+                    System.out.println("Enter the number of the auditorium you want to change");
+                    if (roomCRUD.update(scanner.nextInt()))
+                        System.out.println("The auditorium has changed");
                     else
                         System.out.println("I entered the number incorrectly");
                 }
                 case 3 -> {
-                    System.out.println("Enter the number of the audience you want to delete");
-                    Room room = roomCRUD.read(scanner.nextLong());
-                    if (room != null)
-                        roomCRUD.delete(room.getRoomId());
+                    System.out.println("Enter the number of the auditorium you want to delete");
+                    if (roomCRUD.delete(scanner.nextInt()))
+                        System.out.println("The auditorium has been deleted");
                     else
                         System.out.println("The number is entered incorrectly");
                 }
@@ -118,14 +118,14 @@ public class GeneralInterface {
     }
 
     private void availableSlots() {
-        roomCRUD.readAll();
-        System.out.println("Select an audience for booking: ");
-        long roomId = scanner.nextLong();
+        readAllRoom();
+        System.out.println("Select an auditorium for booking: ");
+        int auditorium = scanner.nextInt();
         System.out.println("Which day for booking are you interested in (format for entering YYYY-MM-DD): ");
         String date = scanner.next();
         try {
             LocalDate localDate = LocalDate.parse(date);
-            freeSlotsCRUD.readAll(roomId, person, localDate);
+            freeSlotsCheck.readAll(auditorium, person, localDate);
         } catch (Exception e) {
             System.out.println("Something went wrong, make sure you entered the date correctly");
         }
@@ -151,7 +151,7 @@ public class GeneralInterface {
     }
 
     private void undoneBooking() {
-        System.out.println("Enter the audience number: ");
+        System.out.println("Enter the auditorium number: ");
         long roomId = scanner.nextLong();
         System.out.println("Enter the time in the YYYY-MM-DDThh:mm:ss format from which the booking begins: ");
         String localDateTimeStr = scanner.next();
@@ -161,6 +161,15 @@ public class GeneralInterface {
         } catch (Exception e) {
             System.out.println("Something went wrong, make sure you entered the date and time correctly");
             e.printStackTrace();
+        }
+    }
+
+    private void readAllRoom() {
+        List<Room> roomList = roomCRUD.readAll();
+        System.out.printf("%-10s  %-20s  %-10s\n", "№", "Room", "From");
+        for (Room entry : roomList) {
+            System.out.printf("%-10s  %-20s  %-10s\n", entry.getAuditorium(),
+                    entry.getRoomName(), entry.getPrice() + " rub.");
         }
     }
 }

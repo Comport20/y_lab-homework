@@ -39,7 +39,7 @@ public class ReservedSlotsCRUD {
         System.out.printf("%-10s  %-20s  %-20s  %-40s  %-20s  %-20s\n", "№", "Room", "Price", "Tenant", "From", "To");
         for (Slot reservedSlot : reservedSlotListTable) {
             System.out.printf("%-10s  %-20s  %-20s  %-40s  %-20s  %-20s\n",
-                    reservedSlot.getRoom().getRoomId(), reservedSlot.getRoom().getRoomName(),
+                    reservedSlot.getRoom().getAuditorium(), reservedSlot.getRoom().getRoomName(),
                     reservedSlot.getPrice() + " rub.",
                     reservedSlot.getPerson().getFirstname() + " " +
                             reservedSlot.getPerson().getLastname(),
@@ -53,7 +53,8 @@ public class ReservedSlotsCRUD {
     }
 
     public void delete(Long roomId, LocalDateTime localDateTime) {
-        Room room = roomCrud.read(roomId);
+        //Временная мера
+        Room room = null;
         if (reservedSlotListTable.removeIf
                 (reservedSlot ->
                         reservedSlot.getRoom().equals(room) && reservedSlot.getFromLocalDateTime().equals(localDateTime))) {
