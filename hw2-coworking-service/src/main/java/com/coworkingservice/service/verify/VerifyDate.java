@@ -1,7 +1,7 @@
 package com.coworkingservice.service.verify;
 
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class VerifyDate {
     private final List<Slot> reservedSlots;
     public VerifyDate(){
-        reservedSlots = MemoryDB.getInstance().getReservedSlotListTable();
+        reservedSlots = ConnectionDB.getInstance().getReservedSlotListTable();
     }
     public boolean checkDate(LocalDateTime start1, LocalDateTime end1) {
         for (Slot slot : reservedSlots) {

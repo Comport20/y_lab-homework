@@ -1,8 +1,7 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Room;
-import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 
 import java.sql.Connection;
@@ -21,7 +20,7 @@ public class RoomRead implements Read<Room> {
 
     @Override
     public Room read(int id) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readQuery = "SELECT * FROM entity.room where id=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(readQuery)) {
@@ -48,7 +47,7 @@ public class RoomRead implements Read<Room> {
 
     @Override
     public Room readWhere(int indicator) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readQuery = "SELECT * FROM entity.room where auditorium=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(readQuery)) {
@@ -76,7 +75,7 @@ public class RoomRead implements Read<Room> {
     @Override
     public List<Room> readAll() {
         List<Room> rooms = new LinkedList<>();
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readAllQuery = "SELECT * FROM entity.room";
             try (PreparedStatement preparedStatement = con.prepareStatement(readAllQuery)) {

@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Slot;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class ReservedSlotsCreate implements Create<Slot>{
     @Override
     public void create(Slot slot) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String insertQuery = "INSERT INTO entity.reserved_slot (room_id, price, person_id, from_date, to_date) " +
                     "VALUES(?,?,?,?,?)";

@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
@@ -36,7 +36,7 @@ public class ReservedSlotsRead implements Read<Slot>{
     @Override
     public List<Slot> readAll() {
         List<Slot> slots = new LinkedList<>();
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readAllQuery = "SELECT * FROM entity.reserved_slot";
             try (PreparedStatement preparedStatement = con.prepareStatement(readAllQuery)) {

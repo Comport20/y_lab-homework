@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Room;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class RoomUpdate implements Update<Room>{
     @Override
     public boolean update(int indicator, Room room) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String updateQuery = "UPDATE entity.room SET auditorium=?, room_name=?, price=? where auditorium=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(updateQuery)) {

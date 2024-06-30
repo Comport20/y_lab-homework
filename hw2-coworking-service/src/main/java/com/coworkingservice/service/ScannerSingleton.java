@@ -1,6 +1,6 @@
 package com.coworkingservice.service;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class ScannerSingleton {
     }
     public static ScannerSingleton getInstance() {
         if (instance == null) {
-            synchronized (MemoryDB.class) {
+            synchronized (ConnectionDB.class) {
                 if (instance == null) {
                     instance = new ScannerSingleton();
                 }

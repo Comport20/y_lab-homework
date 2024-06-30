@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Room;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class RoomCreate implements Create<Room>{
     @Override
     public void create(Room room) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String insertQuery = "INSERT INTO entity.room (auditorium, room_name,price) VALUES(?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {

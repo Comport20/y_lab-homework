@@ -4,7 +4,7 @@ package com.coworkingservice.service.verify;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class PersonRegistration implements Registration {
     private final EntityFamilyFabric entityFabric;
     public PersonRegistration(Credential credential, EntityFamilyFabric entityFabric) {
         this.credential = credential;
-        this.personMapTable = MemoryDB.getInstance().getPersonMapTable();
+        this.personMapTable = ConnectionDB.getInstance().getPersonMapTable();
         this.entityFabric = entityFabric;
     }
     @Override

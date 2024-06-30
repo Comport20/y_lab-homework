@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ public class ReservedSlotsDeleteImp implements ReservedSlotsDelete {
 
     @Override
     public boolean delete(int roomId, LocalDateTime localDateTime) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String deleteQuery = "DELETE FROM entity.reserved_slot where from_date = ? AND room_id=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(deleteQuery)) {

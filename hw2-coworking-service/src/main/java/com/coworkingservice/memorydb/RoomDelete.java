@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class RoomDelete implements Delete{
     @Override
     public boolean delete(int indicator) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String deleteQuery = "DELETE FROM entity.room where auditorium = ?";
             try (PreparedStatement preparedStatement = con.prepareStatement(deleteQuery)) {

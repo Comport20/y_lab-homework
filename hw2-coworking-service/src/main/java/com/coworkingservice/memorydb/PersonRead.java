@@ -1,8 +1,7 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Person;
-import com.coworkingservice.entity.Room;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 
 import java.sql.Connection;
@@ -18,7 +17,7 @@ public class PersonRead implements ReadWhereString<Person>, Read<Person>{
     }
     @Override
     public Person readWhereString(String whereString) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readQuery = "SELECT * FROM entity.person where email=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(readQuery)) {
@@ -49,7 +48,7 @@ public class PersonRead implements ReadWhereString<Person>, Read<Person>{
 
     @Override
     public Person read(int id) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readQuery = "SELECT * FROM entity.person where id=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(readQuery)) {

@@ -1,6 +1,6 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Credential;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class CredentialCreate implements Create<Credential>{
     @Override
     public void create(Credential credential) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String insertQuery = "INSERT INTO entity.credential (username, password, person_id) VALUES(?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {

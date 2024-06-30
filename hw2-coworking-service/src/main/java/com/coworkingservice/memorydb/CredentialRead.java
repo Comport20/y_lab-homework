@@ -1,20 +1,17 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Credential;
-import com.coworkingservice.entity.Person;
-import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CredentialRead implements ReadWhereEntity<Credential>{
     @Override
     public int readWhereEntity(Credential credential) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String readQuery = "SELECT * FROM entity.credential where username=? and password=?";
             try (PreparedStatement preparedStatement = con.prepareStatement(readQuery)) {

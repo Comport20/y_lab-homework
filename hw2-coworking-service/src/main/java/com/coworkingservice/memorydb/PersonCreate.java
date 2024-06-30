@@ -1,11 +1,9 @@
 package com.coworkingservice.memorydb;
 
-import com.coworkingservice.MemoryDB;
+import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
-import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 import com.coworkingservice.fabric.EntityReadingFabric;
 
 import java.sql.Connection;
@@ -23,7 +21,7 @@ public class PersonCreate implements Create<Person>{
     }
     @Override
     public void create(Person person) {
-        try (Connection con = MemoryDB.getConnection()) {
+        try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
             String insertQuery = "INSERT INTO entity.person (firstname, lastname, email) VALUES(?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {

@@ -4,7 +4,6 @@ import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.service.ScannerSingleton;
@@ -153,9 +152,9 @@ public class GeneralInterface {
             switch (scanner.nextInt()) {
                 case 0 -> reservedPlacesExit = true;
                 case 1 -> undoneBooking();
-                case 2 -> MemoryDB.getInstance().getReservedSlotListTable().sort(new TimeFilter());
-                case 3 -> MemoryDB.getInstance().getReservedSlotListTable().sort(new PriceFilter());
-                case 4 -> MemoryDB.getInstance().getReservedSlotListTable().sort(new PersonFilter());
+                case 2 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new TimeFilter());
+                case 3 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new PriceFilter());
+                case 4 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new PersonFilter());
             }
         }
     }
