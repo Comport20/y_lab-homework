@@ -38,11 +38,6 @@ public class PersonCRUD {
     }
 
 
-    public void readAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
     public void update(Credential key) {
         if (personMapTable.containsKey(key)) {
             personMapTable.put(key, entityFabric.createPerson());

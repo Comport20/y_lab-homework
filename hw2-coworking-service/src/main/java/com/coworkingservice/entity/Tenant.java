@@ -5,4 +5,8 @@ public class Tenant extends Person{
         this.firstname = firstname;
         this.lastname = lastname;
     }
+    public Tenant(int id, String firstname, String lastname){
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
 }

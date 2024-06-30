@@ -3,6 +3,7 @@ package com.coworkingservice;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
+import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.service.ScannerSingleton;
@@ -22,6 +23,7 @@ import java.util.Scanner;
 public class GeneralInterface {
 
     private final FreeSlotsCheck freeSlotsCheck;
+    private final Credential credential;
     private final PersonCRUD personCRUD;
     private final ReservedSlotsCRUD reservedSlotsCRUD;
     private final RoomCRUD roomCRUD;
@@ -31,13 +33,14 @@ public class GeneralInterface {
     private boolean exit = false;
     private final EntityFabric entityFabric;
 
-    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric) {
+    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric,Credential credential) {
         this.freeSlotsCheck = freeSlotsCheck;
         this.personCRUD = personCRUD;
         this.reservedSlotsCRUD = reservedSlotsCRUD;
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.entityFabric = entityFabric;
+        this.credential = credential;
     }
 
     public void startCoworkingService() {
@@ -98,10 +101,10 @@ public class GeneralInterface {
             System.out.println("Back - 0");
             switch (scanner.nextInt()) {
                 case 0 -> isEditEnd = true;
-                case 1 -> roomCRUD.create();
+                case 1 -> roomCRUD.create(entityFabric.createRoom());
                 case 2 -> {
                     System.out.println("Enter the number of the auditorium you want to change");
-                    if (roomCRUD.update(scanner.nextInt()))
+                    if (roomCRUD.update(scanner.nextInt(), entityFabric.createRoom()))
                         System.out.println("The auditorium has changed");
                     else
                         System.out.println("I entered the number incorrectly");
@@ -134,7 +137,7 @@ public class GeneralInterface {
     private void reservedPlaces() {
         boolean reservedPlacesExit = false;
         while (!reservedPlacesExit) {
-            reservedSlotsCRUD.readAll();
+            readAllReservedSlots();
             System.out.println("To cancel a reservation, press 1");
             System.out.println("To sort by date, press 2");
             System.out.println("To sort by resource, press 3");
@@ -152,24 +155,31 @@ public class GeneralInterface {
 
     private void undoneBooking() {
         System.out.println("Enter the auditorium number: ");
-        long roomId = scanner.nextLong();
+        int roomId = scanner.nextInt();
         System.out.println("Enter the time in the YYYY-MM-DDThh:mm:ss format from which the booking begins: ");
         String localDateTimeStr = scanner.next();
-        try {
-            LocalDateTime fromLocalDateTime = LocalDateTime.parse(localDateTimeStr);
-            reservedSlotsCRUD.delete(roomId, fromLocalDateTime);
-        } catch (Exception e) {
+        LocalDateTime fromLocalDateTime = LocalDateTime.parse(localDateTimeStr);
+        if (!reservedSlotsCRUD.delete(roomId, fromLocalDateTime))
             System.out.println("Something went wrong, make sure you entered the date and time correctly");
-            e.printStackTrace();
-        }
+
     }
 
     private void readAllRoom() {
-        List<Room> roomList = roomCRUD.readAll();
+        List<Room> roomsList = roomCRUD.readAll();
         System.out.printf("%-10s  %-20s  %-10s\n", "№", "Room", "From");
-        for (Room entry : roomList) {
+        for (Room entry : roomsList) {
             System.out.printf("%-10s  %-20s  %-10s\n", entry.getAuditorium(),
                     entry.getRoomName(), entry.getPrice() + " rub.");
+        }
+    }
+
+    private void readAllReservedSlots() {
+        List<Slot> slotsList = reservedSlotsCRUD.readAll();
+        System.out.printf("%-10s %-20s %-40s %-10s %-20s %-20s\n", "№", "Room", "Person", "Price", "From", "To");
+        for (Slot slot : slotsList) {
+            System.out.printf("%-10s %-20s %-40s %-10s %-20s %-20s\n",
+                    slot.getAuditorium(), slot.getRoomName(), slot.getPersonName(),slot.getPrice(),
+                    slot.getFromLocalDateTime(), slot.getToLocalDateTime());
         }
     }
 }

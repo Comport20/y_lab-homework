@@ -1,12 +1,14 @@
 package com.coworkingservice.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 @Setter
 @Getter
 public abstract class Room {
+    @Setter(AccessLevel.NONE)
+    private int id;
     private int auditorium;
-    @Setter()
     protected String roomName;
     protected double price;
 
@@ -15,5 +17,10 @@ public abstract class Room {
         this.roomName = roomName;
         this.price = price;
     }
-
+    public Room(int id, int auditorium, String roomName, double price) {
+        this.id = id;
+        this.auditorium = auditorium;
+        this.roomName = roomName;
+        this.price = price;
+    }
 }

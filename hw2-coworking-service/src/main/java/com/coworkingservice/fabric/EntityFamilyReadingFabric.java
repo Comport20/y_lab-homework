@@ -5,11 +5,11 @@ import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public interface EntityFamilyReadingFabric {
     Credential createCredential();
-    Person createPerson();
-    Slot createSlot(int room, int person, LocalDate localDate);
-    Room createRoom(int auditorium, String roomName);
+    Person createPerson(int id, String firstName, String lastName);
+    Slot createSlot(Room room, double price, Person person, Timestamp fromLocalDate, Timestamp toLocalDate);
+    Room createRoom(int id, int auditorium, String roomName);
 }
