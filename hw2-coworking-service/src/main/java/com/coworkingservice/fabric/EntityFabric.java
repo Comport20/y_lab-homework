@@ -8,17 +8,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-public class EntityFabric implements EntityFamilyFabric{
+public class EntityFabric implements EntityFamilyFabric {
     private final Scanner scanner;
+
     public EntityFabric() {
         scanner = ScannerSingleton.getInstance().getScanner();
     }
-    public Credential createCredential() {
+
+    public Credential createCredential(Person person) {
         System.out.printf("%-20s", "Enter your username: ");
         String login = scanner.next();
         System.out.printf("%-20s", "Enter the Password: ");
         String password = scanner.next();
-        return new Credential(login,password);
+        return new Credential(login, password, person);
     }
 
     public Person createPerson() {
@@ -26,8 +28,11 @@ public class EntityFabric implements EntityFamilyFabric{
         String firstname = scanner.next();
         System.out.printf("%-20s", "Enter your last name: ");
         String lastname = scanner.next();
-        return new Tenant(firstname, lastname);
+        System.out.printf("%-20s", "Enter your email: ");
+        String email = scanner.next();
+        return new Tenant(firstname, lastname, email);
     }
+
     public Slot createSlot(Room room, Person person, LocalDate localDate) {
         boolean isCorrect = false;
         int startTime = 0;
@@ -54,8 +59,9 @@ public class EntityFabric implements EntityFamilyFabric{
         price *= room.getPrice() * price;
         LocalDateTime localDateTime1 = LocalDateTime.of(localDate, LocalTime.of(startTime, 0));
         LocalDateTime localDateTime2 = LocalDateTime.of(localDate, LocalTime.of(endTime, 0));
-        return new Slot(room, price ,person, localDateTime1, localDateTime2);
+        return new Slot(room, price, person, localDateTime1, localDateTime2);
     }
+
     public Room createRoom() {
         System.out.println("Enter the audience number: ");
         int audience = scanner.nextInt();

@@ -5,6 +5,7 @@ import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFabric;
+import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.service.ScannerSingleton;
 import com.coworkingservice.service.filter.PersonFilter;
@@ -23,7 +24,7 @@ import java.util.Scanner;
 public class GeneralInterface {
 
     private final FreeSlotsCheck freeSlotsCheck;
-    private final Credential credential;
+    private final CredentialCRUD credentialCRUD;
     private final PersonCRUD personCRUD;
     private final ReservedSlotsCRUD reservedSlotsCRUD;
     private final RoomCRUD roomCRUD;
@@ -31,16 +32,16 @@ public class GeneralInterface {
     private Person person;
     private boolean auth = false;
     private boolean exit = false;
-    private final EntityFabric entityFabric;
+    private final EntityFamilyFabric entityFabric;
 
-    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFabric entityFabric,Credential credential) {
+    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFamilyFabric entityFabric,CredentialCRUD credentialCRUD) {
         this.freeSlotsCheck = freeSlotsCheck;
         this.personCRUD = personCRUD;
         this.reservedSlotsCRUD = reservedSlotsCRUD;
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.entityFabric = entityFabric;
-        this.credential = credential;
+        this.credentialCRUD = credentialCRUD;
     }
 
     public void startCoworkingService() {
@@ -75,8 +76,13 @@ public class GeneralInterface {
     }
 
     private void auth() {
-        person = personCRUD.read(entityFabric.createCredential());
-        if (person != null) {
+        System.out.printf("%-20s", "Enter your username: ");
+        String login = scanner.next();
+        System.out.printf("%-20s", "Enter the Password: ");
+        String password = scanner.next();
+        int id = credentialCRUD.readWhereEntity(new Credential(login, password));
+        if (id != -1) {
+            this.person = personCRUD.read(id);
             System.out.println("The user has been successfully logged in");
             auth = true;
         } else {
@@ -85,9 +91,10 @@ public class GeneralInterface {
     }
 
     private void registration() {
-        Credential credential = entityFabric.createCredential();
-        personCRUD.create(credential);
-        person = personCRUD.read(credential);
+        Person person = entityFabric.createPerson();
+        personCRUD.create(person);
+        this.person = personCRUD.readWhereString(person.getEmail());
+        System.out.println("The user has been successfully registered");
         auth = true;
     }
 

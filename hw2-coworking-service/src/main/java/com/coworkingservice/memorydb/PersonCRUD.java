@@ -6,46 +6,27 @@ import com.coworkingservice.entity.Person;
 
 import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.service.verify.Registration;
-import com.coworkingservice.service.verify.PersonRegistration;
-
-
-import java.util.Map;
+;
 
 
 public class PersonCRUD {
-    private final Map<Credential, Person> personMapTable;
-    private Registration registration;
-    private final EntityFamilyFabric entityFabric;
-
-    public PersonCRUD(EntityFamilyFabric entityFabric) {
-        this.personMapTable = MemoryDB.getInstance().getPersonMapTable();
-        this.entityFabric = entityFabric;
+    private final Create<Person> personCreate;
+    private final ReadWhereString<Person> readWhereString;
+    private final Read<Person> personRead;
+    public PersonCRUD(Create<Person> personCreate, ReadWhereString<Person> readWhereString,Read<Person> personRead) {
+        this.personCreate = personCreate;
+        this.readWhereString = readWhereString;
+        this.personRead = personRead;
     }
 
-
-    public void create(Credential credential) {
-        this.registration = new PersonRegistration(credential, entityFabric);
-        if (registration.register()) {
-            System.out.println("The user has been successfully registered.");
-        } else {
-            System.out.println("Such a user already exists.");
-        }
+    public void create(Person person) {
+        personCreate.create(person);
     }
 
-
-    public Person read(Credential key) {
-        return personMapTable.get(key);
+    public Person readWhereString(String whereString){
+        return readWhereString.readWhereString(whereString);
     }
-
-
-    public void update(Credential key) {
-        if (personMapTable.containsKey(key)) {
-            personMapTable.put(key, entityFabric.createPerson());
-        }
-    }
-
-
-    public void delete(Credential Key) {
-        personMapTable.remove(Key);
+    public Person read(int id) {
+        return personRead.read(id);
     }
 }

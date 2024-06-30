@@ -8,13 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ReservedSlotsCreate implements Create<Slot>{
-    public ReservedSlotsCreate(){
-    }
     @Override
     public void create(Slot slot) {
         try (Connection con = MemoryDB.getConnection()) {
             con.setAutoCommit(false);
-            String insertQuery = "INSERT INTO entity.room (room_id, price, person_id, from_date, to_date) " +
+            String insertQuery = "INSERT INTO entity.reserved_slot (room_id, price, person_id, from_date, to_date) " +
                     "VALUES(?,?,?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
                 preparedStatement.setInt(1, slot.getRoomId());

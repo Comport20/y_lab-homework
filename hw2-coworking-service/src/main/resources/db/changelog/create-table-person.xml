@@ -13,6 +13,9 @@
             <column name="lastname" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="email" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

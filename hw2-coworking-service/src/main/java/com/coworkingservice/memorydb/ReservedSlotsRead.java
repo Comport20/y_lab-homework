@@ -17,10 +17,10 @@ public class ReservedSlotsRead implements Read<Slot>{
     private final EntityFamilyReadingFabric entityFamilyReadingFabric;
     private final Read<Room> roomRead;
     private final Read<Person> personRead;
-    public ReservedSlotsRead(EntityFamilyReadingFabric entityFamilyReadingFabric, Read<Room> roomRead, Read<Person> personRead) {
+    public ReservedSlotsRead(EntityFamilyReadingFabric entityFamilyReadingFabric) {
         this.entityFamilyReadingFabric = entityFamilyReadingFabric;
-        this.roomRead = roomRead;
-        this.personRead = personRead;
+        this.roomRead = new RoomRead(entityFamilyReadingFabric);
+        this.personRead = new PersonRead(entityFamilyReadingFabric);
     }
 
     @Override

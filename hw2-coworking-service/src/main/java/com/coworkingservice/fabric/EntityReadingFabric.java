@@ -14,13 +14,13 @@ public class EntityReadingFabric implements EntityFamilyReadingFabric {
     }
 
     @Override
-    public Credential createCredential() {
-        return null;
+    public Credential createCredential(String username, String password, Person person) {
+        return new Credential(username, password, person);
     }
 
     @Override
-    public Person createPerson(int id, String firstName, String lastName) {
-        return new Tenant(id, firstName, lastName);
+    public Person createPerson(int id, String firstName, String lastName, String email) {
+        return new Tenant(id, firstName, lastName, email);
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.coworkingservice.entity.Slot;
 import java.time.LocalDate;
 
 public interface EntityFamilyFabric {
-    Credential createCredential();
+    Credential createCredential(Person person);
     Person createPerson();
     Slot createSlot(Room room, Person person, LocalDate localDate);
     Room createRoom();

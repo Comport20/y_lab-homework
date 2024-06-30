@@ -5,13 +5,13 @@ import com.coworkingservice.entity.Room;
 import java.util.List;
 
 
-
 public class RoomCRUD {
     private final Create<Room> roomCreate;
     private final Read<Room> roomRead;
     private final Delete roomDelete;
     private final Update<Room> roomUpdate;
-    public RoomCRUD(Create<Room> roomCreate, Read<Room> roomRead, Delete roomDelete, Update<Room> roomUpdate) {
+
+    public RoomCRUD(Create<Room> roomCreate, Read<Room> roomRead, Update<Room> roomUpdate, Delete roomDelete) {
         this.roomCreate = roomCreate;
         this.roomRead = roomRead;
         this.roomDelete = roomDelete;
