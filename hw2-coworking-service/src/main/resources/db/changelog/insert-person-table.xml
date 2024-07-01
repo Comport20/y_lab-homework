@@ -6,10 +6,12 @@
         <insert tableName="person" schemaName="entity">
             <column name="firstname" value="Map"/>
             <column name="lastname" value="Coach"/>
+            <column name="email" value="test@test"/>
         </insert>
         <insert tableName="person" schemaName="entity">
             <column name="firstname" value="Lock"/>
             <column name="lastname" value="Pock"/>
+            <column name="email" value="login@test"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

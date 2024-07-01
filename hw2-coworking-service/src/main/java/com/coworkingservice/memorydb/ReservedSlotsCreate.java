@@ -12,8 +12,7 @@ public class ReservedSlotsCreate implements Create<Slot>{
     public void create(Slot slot) {
         try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
-            String insertQuery = "INSERT INTO entity.reserved_slot (room_id, price, person_id, from_date, to_date) " +
-                    "VALUES(?,?,?,?,?)";
+            String insertQuery = "INSERT INTO entity.reserved_slot (room_id, price, person_id, from_date, to_date) VALUES(?,?,?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
                 preparedStatement.setInt(1, slot.getRoomId());
                 preparedStatement.setDouble(2, slot.getPrice());

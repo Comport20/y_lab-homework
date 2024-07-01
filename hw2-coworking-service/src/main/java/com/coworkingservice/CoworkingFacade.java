@@ -40,7 +40,7 @@ public class CoworkingFacade {
         Read<Slot> slotRead = new ReservedSlotsRead(entityFamilyReadingFabric);
         ReservedSlotsDelete reservedSlotsDelete = new ReservedSlotsDeleteImp();
         this.reservedSlotsCRUD = new ReservedSlotsCRUD(slotCreate,slotRead,reservedSlotsDelete);
-        this.freeSlotsCheck = new FreeSlotsCheck(entityFamilyFabric,roomCRUD,reservedSlotsCRUD,new VerifyDate());
+        this.freeSlotsCheck = new FreeSlotsCheck(entityFamilyFabric,roomCRUD,reservedSlotsCRUD,new VerifyDate(new ReservedSlotReadWhereIdAndDate(entityFamilyReadingFabric)));
         this.generalInterface = new GeneralInterface(freeSlotsCheck, personCRUD, reservedSlotsCRUD,
                 roomCRUD,entityFamilyFabric,credentialCRUD);
     }

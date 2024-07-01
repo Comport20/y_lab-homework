@@ -2,14 +2,15 @@ package com.coworkingservice.service.verify;
 
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
+import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyFabric;
+import com.coworkingservice.memorydb.ReadWhereIdAndDate;
 import com.coworkingservice.memorydb.ReservedSlotsCRUD;
 import com.coworkingservice.memorydb.RoomCRUD;
 import com.coworkingservice.service.ScannerSingleton;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class FreeSlotsCheck {
@@ -18,7 +19,7 @@ public class FreeSlotsCheck {
     private final VerifyDate verifyDate;
     private final ReservedSlotsCRUD reservedSlotsCRUD;
     private final EntityFamilyFabric entityFamilyFabric;
-    public FreeSlotsCheck(EntityFamilyFabric entityFamilyFabric,RoomCRUD roomCRUD, ReservedSlotsCRUD reservedSlotsCRUD, VerifyDate verifyDate) {
+    public FreeSlotsCheck(EntityFamilyFabric entityFamilyFabric, RoomCRUD roomCRUD, ReservedSlotsCRUD reservedSlotsCRUD, VerifyDate verifyDate) {
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.verifyDate = verifyDate;
@@ -28,8 +29,8 @@ public class FreeSlotsCheck {
 
     public void readAll(int audience, Person person, LocalDate localDate) {
         Room room = roomCRUD.readWhere(audience);
-        System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n", "№", "Room", "Price", "From", "To");
-        displaySlots(room, localDate);
+        List<Slot> freeSlots = verifyDate.checkDate(room,localDate);
+        displaySlots(freeSlots);
         System.out.println("To book an audience by time, enter 1");
         System.out.println("Back - 0");
         switch (scanner.nextInt()) {
@@ -39,15 +40,14 @@ public class FreeSlotsCheck {
                 reservedSlotsCRUD.create(entityFamilyFabric.createSlot(room, person, localDate));
         }
     }
-    private void displaySlots(Room room, LocalDate localDate) {
-        for (int initialBookingTime = 9; initialBookingTime < 18; initialBookingTime++) {
-            LocalDateTime fromLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime, 0));
-            LocalDateTime toLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime + 1, 0));
-            if (verifyDate.checkDate(fromLocalDateTime, toLocalDateTime)) {
-                System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n",
-                        room.getAuditorium(), room.getRoomName(), room.getPrice(),
-                        fromLocalDateTime, toLocalDateTime);
-            }
+
+
+    private void displaySlots(List<Slot> slots) {
+        System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n", "№", "Room", "Price", "From", "To");
+        for (Slot slot: slots) {
+            System.out.printf("%-10s  %-20s  %-10s  %-20s  %-20s\n",
+                    slot.getAuditorium(), slot.getRoomName(), slot.getPrice(),
+                    slot.getFromLocalDateTime(), slot.getToLocalDateTime());
         }
     }
 }

@@ -152,9 +152,9 @@ public class GeneralInterface {
             switch (scanner.nextInt()) {
                 case 0 -> reservedPlacesExit = true;
                 case 1 -> undoneBooking();
-                case 2 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new TimeFilter());
-                case 3 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new PriceFilter());
-                case 4 -> ConnectionDB.getInstance().getReservedSlotListTable().sort(new PersonFilter());
+                case 2 -> throw new RuntimeException();
+                case 3 -> throw new RuntimeException();
+                case 4 -> throw new RuntimeException();
             }
         }
     }
