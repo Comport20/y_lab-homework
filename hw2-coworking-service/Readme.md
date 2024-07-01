@@ -1,6 +1,8 @@
 # Coworking service
 ## ќписание
- онсольное приложение дл€ аренды помещени€ с базой данных в пам€ти.
+ онсольное приложение дл€ аренды помещени€ с образом базы данных.
 ## ”становка и запуск
 1. git clone https://github.com/Comport20/y_lab-homework.git
-2. java compile exec: java
+2. docker compose up -d
+3. mvn liquibase:update 
+4. java compile exec: java
