@@ -10,6 +10,17 @@ import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 import com.coworkingservice.fabric.EntityReadingFabric;
 import com.coworkingservice.memorydb.*;
+import com.coworkingservice.memorydb.credential.CredentialRead;
+import com.coworkingservice.memorydb.person.PersonCreate;
+import com.coworkingservice.memorydb.person.PersonRead;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotReadWhereIdAndDate;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotsCreate;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotsDeleteImp;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotsRead;
+import com.coworkingservice.memorydb.room.RoomCreate;
+import com.coworkingservice.memorydb.room.RoomDelete;
+import com.coworkingservice.memorydb.room.RoomRead;
+import com.coworkingservice.memorydb.room.RoomUpdate;
 import com.coworkingservice.service.verify.FreeSlotsCheck;
 import com.coworkingservice.service.verify.VerifyDate;
 

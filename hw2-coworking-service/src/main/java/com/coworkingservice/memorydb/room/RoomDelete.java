@@ -1,23 +1,20 @@
-package com.coworkingservice.memorydb;
+package com.coworkingservice.memorydb.room;
 
 import com.coworkingservice.ConnectionDB;
-import com.coworkingservice.entity.Room;
+import com.coworkingservice.memorydb.Delete;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RoomUpdate implements Update<Room>{
+public class RoomDelete implements Delete {
     @Override
-    public boolean update(int indicator, Room room) {
+    public boolean delete(int indicator) {
         try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
-            String updateQuery = "UPDATE entity.room SET auditorium=?, room_name=?, price=? where auditorium=?";
-            try (PreparedStatement preparedStatement = con.prepareStatement(updateQuery)) {
+            String deleteQuery = "DELETE FROM entity.room where auditorium = ?";
+            try (PreparedStatement preparedStatement = con.prepareStatement(deleteQuery)) {
                 preparedStatement.setInt(1, indicator);
-                preparedStatement.setString(2, room.getRoomName());
-                preparedStatement.setDouble(3, room.getPrice());
-                preparedStatement.setDouble(4, indicator);
                 preparedStatement.executeUpdate();
                 con.commit();
                 return true;

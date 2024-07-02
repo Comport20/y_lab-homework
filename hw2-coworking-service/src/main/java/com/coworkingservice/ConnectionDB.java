@@ -10,13 +10,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 
-@Getter
 public class ConnectionDB {
+    private static String urlFile = "src/main/resources/db/changelog/liquibase.properties";
+    private static String jdbcURL;
+    public ConnectionDB(String urlFile, String jdbcURL) {
+        ConnectionDB.urlFile = urlFile;
+        ConnectionDB.jdbcURL = jdbcURL;
+    }
     public static Connection getConnection() {
         Properties prop = new Properties();
-        try (InputStream input = new FileInputStream("src/main/resources/db/changelog/liquibase.properties")) {
+        try (InputStream input = new FileInputStream(urlFile)) {
             prop.load(input);
-            String url = prop.getProperty("url");
+            String url;
+            if(jdbcURL.isEmpty())
+                 url = prop.getProperty("url");
+            else
+                url = jdbcURL;
             String username = prop.getProperty("username");
             String password = prop.getProperty("password");
             return DriverManager.getConnection(url, username, password);

@@ -1,8 +1,10 @@
-package com.coworkingservice.memorydb;
+package com.coworkingservice.memorydb.person;
 
 import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
+import com.coworkingservice.memorydb.Read;
+import com.coworkingservice.memorydb.ReadWhereString;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PersonRead implements ReadWhereString<Person>, Read<Person>{
+public class PersonRead implements ReadWhereString<Person>, Read<Person> {
     private final EntityFamilyReadingFabric entityFamilyReadingFabric;
     public PersonRead(EntityFamilyReadingFabric entityFamilyReadingFabric) {
         this.entityFamilyReadingFabric = entityFamilyReadingFabric;

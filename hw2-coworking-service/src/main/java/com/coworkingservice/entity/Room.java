@@ -1,6 +1,7 @@
 package com.coworkingservice.entity;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 @Setter

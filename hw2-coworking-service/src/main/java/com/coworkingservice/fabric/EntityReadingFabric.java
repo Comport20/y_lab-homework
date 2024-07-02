@@ -31,8 +31,8 @@ public class EntityReadingFabric implements EntityFamilyReadingFabric {
     @Override
     public Room createRoom(int id, int auditorium, String roomName) {
         return switch (roomName) {
-            case "Conference room" -> new WorkplaceRoom(id, auditorium);
-            case "Workplace" -> new ConferenceRoom(id, auditorium);
+            case "Workplace" -> new WorkplaceRoom(id, auditorium);
+            case "Conference room" -> new ConferenceRoom(id, auditorium);
             default -> throw new IllegalStateException("Unexpected value: " + roomName);
         };
     }

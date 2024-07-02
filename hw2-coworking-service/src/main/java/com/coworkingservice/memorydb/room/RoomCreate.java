@@ -1,22 +1,23 @@
-package com.coworkingservice.memorydb;
+package com.coworkingservice.memorydb.room;
 
 import com.coworkingservice.ConnectionDB;
-import com.coworkingservice.entity.Credential;
+import com.coworkingservice.entity.Room;
+import com.coworkingservice.memorydb.Create;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CredentialCreate implements Create<Credential>{
+public class RoomCreate implements Create<Room> {
     @Override
-    public void create(Credential credential) {
+    public void create(Room room) {
         try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
-            String insertQuery = "INSERT INTO entity.credential (username, password, person_id) VALUES(?,?,?)";
+            String insertQuery = "INSERT INTO entity.room (auditorium, room_name,price) VALUES(?,?,?)";
             try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
-                preparedStatement.setString(1, credential.getUsername());
-                preparedStatement.setString(2, credential.getPassword());
-                preparedStatement.setInt(3, credential.getPersonId());
+                preparedStatement.setInt(1, room.getAuditorium());
+                preparedStatement.setString(2, room.getRoomName());
+                preparedStatement.setDouble(3, room.getPrice());
                 preparedStatement.executeUpdate();
                 con.commit();
             } catch (SQLException e) {

@@ -1,14 +1,15 @@
-package com.coworkingservice.memorydb;
+package com.coworkingservice.memorydb.credential;
 
 import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Credential;
+import com.coworkingservice.memorydb.ReadWhereEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CredentialRead implements ReadWhereEntity<Credential>{
+public class CredentialRead implements ReadWhereEntity<Credential> {
     @Override
     public int readWhereEntity(Credential credential) {
         try (Connection con = ConnectionDB.getConnection()) {

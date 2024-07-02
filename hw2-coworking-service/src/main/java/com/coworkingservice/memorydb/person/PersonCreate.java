@@ -1,16 +1,19 @@
-package com.coworkingservice.memorydb;
+package com.coworkingservice.memorydb.person;
 
 import com.coworkingservice.ConnectionDB;
 import com.coworkingservice.entity.Credential;
 import com.coworkingservice.entity.Person;
 import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.fabric.EntityReadingFabric;
+import com.coworkingservice.memorydb.Create;
+import com.coworkingservice.memorydb.ReadWhereString;
+import com.coworkingservice.memorydb.credential.CredentialCreate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PersonCreate implements Create<Person>{
+public class PersonCreate implements Create<Person> {
     private final ReadWhereString<Person> read;
     private final Create<Credential> createCredential;
     private final EntityFamilyFabric entityFamilyFabric;
