@@ -1,7 +1,7 @@
 package com.coworkingservice;
 
 import com.coworkingservice.entity.Person;
-import com.coworkingservice.entity.Tenant;
+
 import com.coworkingservice.fabric.EntityFabric;
 import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
@@ -11,7 +11,6 @@ import com.coworkingservice.memorydb.person.PersonCreate;
 import com.coworkingservice.memorydb.person.PersonRead;
 import org.junit.jupiter.api.*;
 
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
