@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <changeSet id="create-table-reserved-slot" author="Georgiy">
+        <createTable tableName="reserved_slot">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="slot_pkey"/>
+            </column>
+            <column name="room_id" type="serial">
+                <constraints deleteCascade="true" nullable="false" references="entity.room(id)" foreignKeyName="fk_room"/>
+            </column>
+            <column name="price" type="money">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_id" type="serial">
+                <constraints deleteCascade="true" nullable="false" references="entity.person(id)" foreignKeyName="fk_person"/>
+            </column>
+            <column name="from_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
