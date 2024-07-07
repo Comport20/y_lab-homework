@@ -6,9 +6,6 @@ import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 import com.coworkingservice.memorydb.Read;
-import com.coworkingservice.memorydb.ReadOrderBy;
-import com.coworkingservice.memorydb.person.PersonRead;
-import com.coworkingservice.memorydb.room.RoomRead;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,21 +14,33 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReservedSlotsReadOrderByTime implements ReadOrderBy<List<Slot>> {
+public class ReservedSlotRead implements Read<Slot> {
     private final EntityFamilyReadingFabric entityFamilyReadingFabric;
     private final Read<Room> roomRead;
     private final Read<Person> personRead;
-    public ReservedSlotsReadOrderByTime(EntityFamilyReadingFabric entityFamilyReadingFabric) {
+
+    public ReservedSlotRead(EntityFamilyReadingFabric entityFamilyReadingFabric, Read<Room> roomRead, Read<Person> personRead) {
         this.entityFamilyReadingFabric = entityFamilyReadingFabric;
-        this.roomRead = new RoomRead(entityFamilyReadingFabric);
-        this.personRead = new PersonRead(entityFamilyReadingFabric);
+        this.roomRead = roomRead;
+        this.personRead = personRead;
     }
+
     @Override
-    public List<Slot> readOrderBy() {
+    public Slot read(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Slot readWhere(int indicator) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Slot> readAll() {
         List<Slot> slots = new LinkedList<>();
         try (Connection con = ConnectionDB.getConnection()) {
             con.setAutoCommit(false);
-            String readAllQuery = "SELECT * FROM entity.reserved_slot ORDER BY from_date";
+            String readAllQuery = "SELECT * FROM entity.reserved_slot";
             try (PreparedStatement preparedStatement = con.prepareStatement(readAllQuery)) {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {

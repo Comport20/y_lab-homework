@@ -1,7 +1,7 @@
 package com.coworkingservice.memorydb.reservedslots;
 
 import com.coworkingservice.ConnectionDB;
-import com.coworkingservice.memorydb.ReservedSlotsDelete;
+import com.coworkingservice.memorydb.ReservedSlotDelete;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class ReservedSlotsDeleteImp implements ReservedSlotsDelete {
+public class ReservedSlotDeleteImp implements ReservedSlotDelete {
 
     @Override
     public boolean delete(int roomId, LocalDateTime localDateTime) {

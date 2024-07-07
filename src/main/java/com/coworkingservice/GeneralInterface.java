@@ -7,9 +7,6 @@ import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyFabric;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.service.ScannerSingleton;
-import com.coworkingservice.service.filter.PersonFilter;
-import com.coworkingservice.service.filter.PriceFilter;
-import com.coworkingservice.service.filter.TimeFilter;
 import com.coworkingservice.service.verify.FreeSlotsCheck;
 
 
@@ -25,7 +22,7 @@ public class GeneralInterface {
     private final FreeSlotsCheck freeSlotsCheck;
     private final CredentialCRUD credentialCRUD;
     private final PersonCRUD personCRUD;
-    private final ReservedSlotsCRUD reservedSlotsCRUD;
+    private final ReservedSlotCRUD reservedSlotCRUD;
     private final RoomCRUD roomCRUD;
     private final Scanner scanner;
     private Person person;
@@ -33,10 +30,10 @@ public class GeneralInterface {
     private boolean exit = false;
     private final EntityFamilyFabric entityFabric;
 
-    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotsCRUD reservedSlotsCRUD, RoomCRUD roomCRUD, EntityFamilyFabric entityFabric,CredentialCRUD credentialCRUD) {
+    public GeneralInterface(FreeSlotsCheck freeSlotsCheck, PersonCRUD personCRUD, ReservedSlotCRUD reservedSlotCRUD, RoomCRUD roomCRUD, EntityFamilyFabric entityFabric, CredentialCRUD credentialCRUD) {
         this.freeSlotsCheck = freeSlotsCheck;
         this.personCRUD = personCRUD;
-        this.reservedSlotsCRUD = reservedSlotsCRUD;
+        this.reservedSlotCRUD = reservedSlotCRUD;
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.entityFabric = entityFabric;
@@ -165,7 +162,7 @@ public class GeneralInterface {
         System.out.println("Enter the time in the YYYY-MM-DDThh:mm:ss format from which the booking begins: ");
         String localDateTimeStr = scanner.next();
         LocalDateTime fromLocalDateTime = LocalDateTime.parse(localDateTimeStr);
-        if (!reservedSlotsCRUD.delete(roomId, fromLocalDateTime))
+        if (!reservedSlotCRUD.delete(roomId, fromLocalDateTime))
             System.out.println("Something went wrong, make sure you entered the date and time correctly");
 
     }
@@ -180,7 +177,7 @@ public class GeneralInterface {
     }
 
     private void readAllReservedSlots() {
-        List<Slot> slotsList = reservedSlotsCRUD.readAll();
+        List<Slot> slotsList = reservedSlotCRUD.readAll();
         System.out.printf("%-10s %-20s %-40s %-10s %-20s %-20s\n", "№", "Room", "Person", "Price", "From", "To");
         for (Slot slot : slotsList) {
             System.out.printf("%-10s %-20s %-40s %-10s %-20s %-20s\n",

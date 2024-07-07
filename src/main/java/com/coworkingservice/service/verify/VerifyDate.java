@@ -1,9 +1,8 @@
 package com.coworkingservice.service.verify;
 
-import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.memorydb.ReadWhereIdAndDate;
+import com.coworkingservice.memorydb.ReservedSlotCRUD;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,14 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VerifyDate {
-    private final ReadWhereIdAndDate<List<Slot>> readWhereIdAndDate;
-    public VerifyDate(ReadWhereIdAndDate<List<Slot>> readWhereIdAndDate) {
-        this.readWhereIdAndDate = readWhereIdAndDate;
+    private final ReservedSlotCRUD reservedSlotCRUD;
+
+    public VerifyDate(ReservedSlotCRUD reservedSlotCRUD) {
+        this.reservedSlotCRUD = reservedSlotCRUD;
     }
 
     public List<Slot> checkDate(Room room, LocalDate localDate) {
         List<Slot> allSlots = createAllSlotsList(room, localDate);
-        List<Slot> reservedSlots = readWhereIdAndDate.readWhereIdAndDate(room.getId(),localDate);
+        List<Slot> reservedSlots = reservedSlotCRUD.readWhereIdAndDate(room.getId(), localDate);
         List<Slot> validSlots = new ArrayList<>();
         int startReservedIndex = 0;
         int startAllSlotsIndex;
@@ -29,23 +29,24 @@ public class VerifyDate {
                 validSlots.add(allSlots.get(startAllSlotsIndex));
             } else {
                 while (startAllSlotsIndex < allSlots.size() &&
-                        !allSlots.get(startAllSlotsIndex).getFromLocalDateTime().equals(reservedSlots.get(startReservedIndex).getToLocalDateTime())){
+                        !allSlots.get(startAllSlotsIndex).getFromLocalDateTime().equals(reservedSlots.get(startReservedIndex).getToLocalDateTime())) {
                     startAllSlotsIndex++;
                 }
                 startReservedIndex++;
             }
         }
-        while(startAllSlotsIndex < allSlots.size()) {
+        while (startAllSlotsIndex < allSlots.size()) {
             validSlots.add(allSlots.get(startAllSlotsIndex++));
         }
         return validSlots;
     }
+
     private List<Slot> createAllSlotsList(Room room, LocalDate localDate) {
         List<Slot> slots = new ArrayList<>();
         for (int initialBookingTime = 9; initialBookingTime < 18; initialBookingTime++) {
             LocalDateTime fromLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime, 0));
             LocalDateTime toLocalDateTime = LocalDateTime.of(localDate, LocalTime.of(initialBookingTime + 1, 0));
-            slots.add(new Slot(room, room.getPrice(),null, fromLocalDateTime, toLocalDateTime));
+            slots.add(new Slot(room, room.getPrice(), null, fromLocalDateTime, toLocalDateTime));
         }
         return slots;
     }

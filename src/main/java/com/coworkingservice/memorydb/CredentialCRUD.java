@@ -1,14 +1,14 @@
 package com.coworkingservice.memorydb;
 
 import com.coworkingservice.entity.Credential;
+import com.coworkingservice.fabric.CredentialCRUDAbstractFabric;
 
 public class CredentialCRUD {
-    private final ReadWhereEntity<Credential> readWhereEntity;
-    public CredentialCRUD(ReadWhereEntity<Credential> readWhereEntity){
-        this.readWhereEntity = readWhereEntity;
+    private final CredentialCRUDAbstractFabric credentialCRUDAbstractFabric;
+    public CredentialCRUD(CredentialCRUDAbstractFabric credentialCRUDAbstractFabric){
+        this.credentialCRUDAbstractFabric = credentialCRUDAbstractFabric;
     }
     public int readWhereEntity(Credential credential){
-        return readWhereEntity.readWhereEntity(credential);
+        return credentialCRUDAbstractFabric.createReadWhereEntityMechanism().readWhereEntity(credential);
     }
-
 }

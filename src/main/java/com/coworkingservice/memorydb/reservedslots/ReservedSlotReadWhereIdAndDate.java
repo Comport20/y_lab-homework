@@ -7,8 +7,6 @@ import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 import com.coworkingservice.memorydb.Read;
 import com.coworkingservice.memorydb.ReadWhereIdAndDate;
-import com.coworkingservice.memorydb.person.PersonRead;
-import com.coworkingservice.memorydb.room.RoomRead;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -19,10 +17,10 @@ public class ReservedSlotReadWhereIdAndDate implements ReadWhereIdAndDate<List<S
     private final EntityFamilyReadingFabric entityFamilyReadingFabric;
     private final Read<Room> roomRead;
     private final Read<Person> personRead;
-    public ReservedSlotReadWhereIdAndDate(EntityFamilyReadingFabric entityFamilyReadingFabric) {
+    public ReservedSlotReadWhereIdAndDate(EntityFamilyReadingFabric entityFamilyReadingFabric, Read<Room> roomRead, Read<Person> personRead) {
         this.entityFamilyReadingFabric = entityFamilyReadingFabric;
-        this.roomRead = new RoomRead(entityFamilyReadingFabric);
-        this.personRead = new PersonRead(entityFamilyReadingFabric);
+        this.roomRead = roomRead;
+        this.personRead = personRead;
     }
     @Override
     public List<Slot> readWhereIdAndDate(int id, LocalDate date) {

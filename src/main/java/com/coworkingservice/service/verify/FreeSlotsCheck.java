@@ -4,8 +4,7 @@ import com.coworkingservice.entity.Person;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.memorydb.ReadWhereIdAndDate;
-import com.coworkingservice.memorydb.ReservedSlotsCRUD;
+import com.coworkingservice.memorydb.ReservedSlotCRUD;
 import com.coworkingservice.memorydb.RoomCRUD;
 import com.coworkingservice.service.ScannerSingleton;
 
@@ -17,13 +16,13 @@ public class FreeSlotsCheck {
     private final RoomCRUD roomCRUD;
     private final Scanner scanner;
     private final VerifyDate verifyDate;
-    private final ReservedSlotsCRUD reservedSlotsCRUD;
+    private final ReservedSlotCRUD reservedSlotCRUD;
     private final EntityFamilyFabric entityFamilyFabric;
-    public FreeSlotsCheck(EntityFamilyFabric entityFamilyFabric, RoomCRUD roomCRUD, ReservedSlotsCRUD reservedSlotsCRUD, VerifyDate verifyDate) {
+    public FreeSlotsCheck(EntityFamilyFabric entityFamilyFabric, RoomCRUD roomCRUD, ReservedSlotCRUD reservedSlotCRUD, VerifyDate verifyDate) {
         this.roomCRUD = roomCRUD;
         this.scanner = ScannerSingleton.getInstance().getScanner();
         this.verifyDate = verifyDate;
-        this.reservedSlotsCRUD = reservedSlotsCRUD;
+        this.reservedSlotCRUD = reservedSlotCRUD;
         this.entityFamilyFabric = entityFamilyFabric;
     }
 
@@ -37,7 +36,7 @@ public class FreeSlotsCheck {
             case 0:
                 break;
             case 1:
-                reservedSlotsCRUD.create(entityFamilyFabric.createSlot(room, person, localDate));
+                reservedSlotCRUD.create(entityFamilyFabric.createSlot(room, person, localDate));
         }
     }
 
