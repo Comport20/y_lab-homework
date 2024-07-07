@@ -4,17 +4,16 @@ import com.coworkingservice.entity.Slot;
 import com.coworkingservice.memorydb.Create;
 import com.coworkingservice.memorydb.Read;
 import com.coworkingservice.memorydb.ReadWhereIdAndDate;
-import com.coworkingservice.memorydb.ReservedSlotsDelete;
+import com.coworkingservice.memorydb.ReservedSlotDelete;
 
-import java.time.LocalDate;
 import java.util.List;
 
-public interface ReservedSlotsCRUDAbstractFabric {
+public interface ReservedSlotCRUDAbstractFabric {
     Create<Slot> createCreationMechanism();
 
     Read<Slot> createReadAllMechanism();
 
-    ReservedSlotsDelete createDeleteMechanism();
+    ReservedSlotDelete createDeleteMechanism();
 
     ReadWhereIdAndDate<List<Slot>> createReadWhereIdAndDateMechanism();
 }

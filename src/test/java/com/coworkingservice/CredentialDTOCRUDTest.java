@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class CredentialCRUDTest extends PropertiesContainerTest{
+public class CredentialDTOCRUDTest extends PropertiesContainerTest{
     private CredentialCRUD credentialCRUD;
     @BeforeEach
     void setUp() {

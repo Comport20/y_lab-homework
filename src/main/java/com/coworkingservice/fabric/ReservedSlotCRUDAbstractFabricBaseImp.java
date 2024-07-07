@@ -4,31 +4,31 @@ import com.coworkingservice.entity.Slot;
 import com.coworkingservice.memorydb.Create;
 import com.coworkingservice.memorydb.Read;
 import com.coworkingservice.memorydb.ReadWhereIdAndDate;
-import com.coworkingservice.memorydb.ReservedSlotsDelete;
+import com.coworkingservice.memorydb.ReservedSlotDelete;
 import com.coworkingservice.memorydb.person.PersonRead;
 import com.coworkingservice.memorydb.reservedslots.ReservedSlotReadWhereIdAndDate;
-import com.coworkingservice.memorydb.reservedslots.ReservedSlotsCreate;
-import com.coworkingservice.memorydb.reservedslots.ReservedSlotsDeleteImp;
-import com.coworkingservice.memorydb.reservedslots.ReservedSlotsRead;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotCreate;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotDeleteImp;
+import com.coworkingservice.memorydb.reservedslots.ReservedSlotRead;
 import com.coworkingservice.memorydb.room.RoomRead;
 
 import java.util.List;
 
-public class ReservedSlotsCRUDAbstractFabricBaseImp implements ReservedSlotsCRUDAbstractFabric {
+public class ReservedSlotCRUDAbstractFabricBaseImp implements ReservedSlotCRUDAbstractFabric {
     @Override
     public Create<Slot> createCreationMechanism() {
-        return new ReservedSlotsCreate();
+        return new ReservedSlotCreate();
     }
 
     @Override
     public Read<Slot> createReadAllMechanism() {
         EntityFamilyReadingFabric entityReadingFabric = new EntityReadingFabric();
-        return new ReservedSlotsRead(entityReadingFabric, new RoomRead(entityReadingFabric), new PersonRead(entityReadingFabric));
+        return new ReservedSlotRead(entityReadingFabric, new RoomRead(entityReadingFabric), new PersonRead(entityReadingFabric));
     }
 
     @Override
-    public ReservedSlotsDelete createDeleteMechanism() {
-        return new ReservedSlotsDeleteImp();
+    public ReservedSlotDelete createDeleteMechanism() {
+        return new ReservedSlotDeleteImp();
     }
 
     @Override

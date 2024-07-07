@@ -2,7 +2,7 @@ package com.coworkingservice.service.verify;
 
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.memorydb.ReservedSlotsCRUD;
+import com.coworkingservice.memorydb.ReservedSlotCRUD;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VerifyDate {
-    private final ReservedSlotsCRUD reservedSlotsCRUD;
+    private final ReservedSlotCRUD reservedSlotCRUD;
 
-    public VerifyDate(ReservedSlotsCRUD reservedSlotsCRUD) {
-        this.reservedSlotsCRUD = reservedSlotsCRUD;
+    public VerifyDate(ReservedSlotCRUD reservedSlotCRUD) {
+        this.reservedSlotCRUD = reservedSlotCRUD;
     }
 
     public List<Slot> checkDate(Room room, LocalDate localDate) {
         List<Slot> allSlots = createAllSlotsList(room, localDate);
-        List<Slot> reservedSlots = reservedSlotsCRUD.readWhereIdAndDate(room.getId(), localDate);
+        List<Slot> reservedSlots = reservedSlotCRUD.readWhereIdAndDate(room.getId(), localDate);
         List<Slot> validSlots = new ArrayList<>();
         int startReservedIndex = 0;
         int startAllSlotsIndex;

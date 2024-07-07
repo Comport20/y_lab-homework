@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ReservedSlotsCreate implements Create<Slot> {
+public class ReservedSlotCreate implements Create<Slot> {
     @Override
     public void create(Slot slot) {
         try (Connection con = ConnectionDB.getConnection()) {

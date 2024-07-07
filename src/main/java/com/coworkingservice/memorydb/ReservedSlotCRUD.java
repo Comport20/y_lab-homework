@@ -1,17 +1,17 @@
 package com.coworkingservice.memorydb;
 
 import com.coworkingservice.entity.Slot;
-import com.coworkingservice.fabric.ReservedSlotsCRUDAbstractFabric;
+import com.coworkingservice.fabric.ReservedSlotCRUDAbstractFabric;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
-public class ReservedSlotsCRUD {
-    private final ReservedSlotsCRUDAbstractFabric reservedSlotsCRUDFabric;
+public class ReservedSlotCRUD {
+    private final ReservedSlotCRUDAbstractFabric reservedSlotsCRUDFabric;
 
-    public ReservedSlotsCRUD(ReservedSlotsCRUDAbstractFabric reservedSlotsCRUDFabric) {
+    public ReservedSlotCRUD(ReservedSlotCRUDAbstractFabric reservedSlotsCRUDFabric) {
         this.reservedSlotsCRUDFabric = reservedSlotsCRUDFabric;
     }
 
