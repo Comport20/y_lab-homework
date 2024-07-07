@@ -21,10 +21,10 @@ public class ReservedSlotsReadOrderByPrice implements ReadOrderBy<List<Slot>> {
     private final EntityFamilyReadingFabric entityFamilyReadingFabric;
     private final Read<Room> roomRead;
     private final Read<Person> personRead;
-    public ReservedSlotsReadOrderByPrice(EntityFamilyReadingFabric entityFamilyReadingFabric) {
+    public ReservedSlotsReadOrderByPrice(EntityFamilyReadingFabric entityFamilyReadingFabric, Read<Room> roomRead, Read<Person> personRead) {
         this.entityFamilyReadingFabric = entityFamilyReadingFabric;
-        this.roomRead = new RoomRead(entityFamilyReadingFabric);
-        this.personRead = new PersonRead(entityFamilyReadingFabric);
+        this.roomRead = roomRead;
+        this.personRead = personRead;
     }
     @Override
     public List<Slot> readOrderBy() {

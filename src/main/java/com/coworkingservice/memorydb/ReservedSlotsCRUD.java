@@ -1,30 +1,33 @@
 package com.coworkingservice.memorydb;
 
 import com.coworkingservice.entity.Slot;
+import com.coworkingservice.fabric.ReservedSlotsCRUDAbstractFabric;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 public class ReservedSlotsCRUD {
-    private final Read<Slot> reservedSlotsRead;
-    private final Create<Slot> reservedSlotsCreate;
-    private final ReservedSlotsDelete reservedSlotsDelete;
-    public ReservedSlotsCRUD(Create<Slot> reservedSlotsCreate, Read<Slot> reservedSlotsRead,ReservedSlotsDelete reservedSlotsDelete) {
-        this.reservedSlotsCreate = reservedSlotsCreate;
-        this.reservedSlotsRead = reservedSlotsRead;
-        this.reservedSlotsDelete = reservedSlotsDelete;
+    private final ReservedSlotsCRUDAbstractFabric reservedSlotsCRUDFabric;
+
+    public ReservedSlotsCRUD(ReservedSlotsCRUDAbstractFabric reservedSlotsCRUDFabric) {
+        this.reservedSlotsCRUDFabric = reservedSlotsCRUDFabric;
     }
 
     public void create(Slot slot) {
-        reservedSlotsCreate.create(slot);
+        reservedSlotsCRUDFabric.createCreationMechanism().create(slot);
     }
 
     public List<Slot> readAll() {
-        return reservedSlotsRead.readAll();
+        return reservedSlotsCRUDFabric.createReadAllMechanism().readAll();
+    }
+
+    public List<Slot> readWhereIdAndDate(int roomId, LocalDate date) {
+        return reservedSlotsCRUDFabric.createReadWhereIdAndDateMechanism().readWhereIdAndDate(roomId, date);
     }
 
     public boolean delete(int roomId, LocalDateTime localDateTime) {
-        return reservedSlotsDelete.delete(roomId, localDateTime);
+        return reservedSlotsCRUDFabric.createDeleteMechanism().delete(roomId, localDateTime);
     }
 }

@@ -4,6 +4,7 @@ import com.coworkingservice.entity.ConferenceRoom;
 import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.WorkplaceRoom;
 import com.coworkingservice.fabric.EntityReadingFabric;
+import com.coworkingservice.fabric.RoomCRUDAbstractFabricBaseImp;
 import com.coworkingservice.memorydb.RoomCRUD;
 import com.coworkingservice.memorydb.room.RoomCreate;
 import com.coworkingservice.memorydb.room.RoomDelete;
@@ -22,7 +23,7 @@ public class RoomCRUDTest extends PropertiesContainerTest {
 
     @BeforeEach
     void setUp() {
-        roomCRUD = new RoomCRUD(new RoomCreate(), new RoomRead(new EntityReadingFabric()), new RoomUpdate(), new RoomDelete());
+        roomCRUD = new RoomCRUD(new RoomCRUDAbstractFabricBaseImp());
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.coworkingservice.entity.Room;
 import com.coworkingservice.entity.Slot;
 import com.coworkingservice.fabric.EntityFamilyReadingFabric;
 import com.coworkingservice.fabric.EntityReadingFabric;
+import com.coworkingservice.fabric.ReservedSlotsCRUDAbstractFabricBaseImp;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.memorydb.reservedslots.ReservedSlotsCreate;
 import com.coworkingservice.memorydb.reservedslots.ReservedSlotsDeleteImp;
@@ -26,10 +27,7 @@ public class ReservedSlotsCRUDTest extends PropertiesContainerTest {
     @BeforeEach
     void setUp() {
         this.entityReadingFabric = new EntityReadingFabric();
-        Create<Slot> slotCreate = new ReservedSlotsCreate();
-        Read<Slot> slotRead = new ReservedSlotsRead(entityReadingFabric);
-        ReservedSlotsDelete reservedSlotsDelete = new ReservedSlotsDeleteImp();
-        this.reservedSlotsCRUD = new ReservedSlotsCRUD(slotCreate, slotRead, reservedSlotsDelete);
+        this.reservedSlotsCRUD = new ReservedSlotsCRUD(new ReservedSlotsCRUDAbstractFabricBaseImp());
     }
 
     @Test

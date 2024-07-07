@@ -2,10 +2,7 @@ package com.coworkingservice;
 
 import com.coworkingservice.entity.Person;
 
-import com.coworkingservice.fabric.EntityFabric;
-import com.coworkingservice.fabric.EntityFamilyFabric;
-import com.coworkingservice.fabric.EntityFamilyReadingFabric;
-import com.coworkingservice.fabric.EntityReadingFabric;
+import com.coworkingservice.fabric.*;
 import com.coworkingservice.memorydb.*;
 import com.coworkingservice.memorydb.person.PersonCreate;
 import com.coworkingservice.memorydb.person.PersonRead;
@@ -19,12 +16,7 @@ public class PersonCRUDTest extends PropertiesContainerTest {
 
     @BeforeEach
     void setUp() {
-        EntityFamilyFabric entityFamilyFabric = new EntityFabric();
-        EntityFamilyReadingFabric entityFamilyReadingFabric = new EntityReadingFabric();
-        Create<Person> personCreate = new PersonCreate(entityFamilyFabric);
-        ReadWhereString<Person> readWhereString = new PersonRead(entityFamilyReadingFabric);
-        Read<Person> personRead = new PersonRead(entityFamilyReadingFabric);
-        this.personCRUD = new PersonCRUD(personCreate, readWhereString, personRead);
+        this.personCRUD = new PersonCRUD(new PersonCRUDAbstractFabricBaseImp());
     }
 
     @Test
